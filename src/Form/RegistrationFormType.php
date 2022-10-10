@@ -4,13 +4,14 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -18,8 +19,17 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email')
-           // ->add('name')
-           // ->add('firstname')
+            ->add('name')
+            ->add('login')
+            ->add('firstname')
+            ->add('birthDate', DateType::class,[
+                "attr"=>[
+                    'class'=>'form-control',
+                ],
+                'label'=>'Entrez votre date de naissance',
+                'widget' => 'choice',
+                'years' => range(date('Y')-100,date('Y')-18)
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
