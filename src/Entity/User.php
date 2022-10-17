@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -71,6 +73,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="date", nullable=true)
      */
     private $modifDate;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Team::class, mappedBy="playersInTeam")
+     */
+    private $teams;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Game::class, mappedBy="author")
+     */
+    private $gamesOfAuthor;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Game::class, mappedBy="playersjoined")
+     */
+    private $gamesjoined;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Notification::class, mappedBy="notifAuthor")
+     */
+    private $notifsOfAuthor;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Notification::class, mappedBy="addressee")
+     */
+    private $notifsOfAddressee;
+
+    public function __construct()
+    {
+        $this->teams = new ArrayCollection();
+        $this->gamesOfAuthor = new ArrayCollection();
+        $this->gamesjoined = new ArrayCollection();
+        $this->notifsOfAuthor = new ArrayCollection();
+        $this->notifsOfAddressee = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -241,6 +277,147 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setModifDate(?\DateTimeInterface $modifDate): self
     {
         $this->modifDate = $modifDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Team>
+     */
+    public function getTeams(): Collection
+    {
+        return $this->teams;
+    }
+
+    public function addTeam(Team $team): self
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams[] = $team;
+            $team->addPlayersInTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(Team $team): self
+    {
+        if ($this->teams->removeElement($team)) {
+            $team->removePlayersInTeam($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Game>
+     */
+    public function getGamesOfAuthor(): Collection
+    {
+        return $this->gamesOfAuthor;
+    }
+
+    public function addGamesOfAuthor(Game $gamesOfAuthor): self
+    {
+        if (!$this->gamesOfAuthor->contains($gamesOfAuthor)) {
+            $this->gamesOfAuthor[] = $gamesOfAuthor;
+            $gamesOfAuthor->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGamesOfAuthor(Game $gamesOfAuthor): self
+    {
+        if ($this->gamesOfAuthor->removeElement($gamesOfAuthor)) {
+            // set the owning side to null (unless already changed)
+            if ($gamesOfAuthor->getAuthor() === $this) {
+                $gamesOfAuthor->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Game>
+     */
+    public function getGamesjoined(): Collection
+    {
+        return $this->gamesjoined;
+    }
+
+    public function addGamesjoined(Game $gamesjoined): self
+    {
+        if (!$this->gamesjoined->contains($gamesjoined)) {
+            $this->gamesjoined[] = $gamesjoined;
+            $gamesjoined->addPlayersjoined($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGamesjoined(Game $gamesjoined): self
+    {
+        if ($this->gamesjoined->removeElement($gamesjoined)) {
+            $gamesjoined->removePlayersjoined($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifsOfAuthor(): Collection
+    {
+        return $this->notifsOfAuthor;
+    }
+
+    public function addNotifsOfAuthor(Notification $notifsOfAuthor): self
+    {
+        if (!$this->notifsOfAuthor->contains($notifsOfAuthor)) {
+            $this->notifsOfAuthor[] = $notifsOfAuthor;
+            $notifsOfAuthor->setNotifAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotifsOfAuthor(Notification $notifsOfAuthor): self
+    {
+        if ($this->notifsOfAuthor->removeElement($notifsOfAuthor)) {
+            // set the owning side to null (unless already changed)
+            if ($notifsOfAuthor->getNotifAuthor() === $this) {
+                $notifsOfAuthor->setNotifAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifsOfAddressee(): Collection
+    {
+        return $this->notifsOfAddressee;
+    }
+
+    public function addNotifsOfAddressee(Notification $notifsOfAddressee): self
+    {
+        if (!$this->notifsOfAddressee->contains($notifsOfAddressee)) {
+            $this->notifsOfAddressee[] = $notifsOfAddressee;
+            $notifsOfAddressee->addAddressee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotifsOfAddressee(Notification $notifsOfAddressee): self
+    {
+        if ($this->notifsOfAddressee->removeElement($notifsOfAddressee)) {
+            $notifsOfAddressee->removeAddressee($this);
+        }
 
         return $this;
     }

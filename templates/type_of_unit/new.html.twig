@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TypeOfUnit{% endblock %}
+
+{% block body %}
+    <h1>Create new TypeOfUnit</h1>
+
+    {{ include('type_of_unit/_form.html.twig') }}
+
+    <a href="{{ path('app_type_of_unit_index') }}">back to list</a>
+{% endblock %}

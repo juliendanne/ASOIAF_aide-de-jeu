@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypeOfUnit index{% endblock %}
+
+{% block body %}
+    <h1>TypeOfUnit index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type_of_unit in type_of_units %}
+            <tr>
+                <td>{{ type_of_unit.id }}</td>
+                <td>{{ type_of_unit.name }}</td>
+                <td>
+                    <a href="{{ path('app_type_of_unit_show', {'id': type_of_unit.id}) }}">show</a>
+                    <a href="{{ path('app_type_of_unit_edit', {'id': type_of_unit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_type_of_unit_new') }}">Create new</a>
+{% endblock %}
