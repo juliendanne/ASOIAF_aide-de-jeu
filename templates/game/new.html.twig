@@ -11,28 +11,29 @@
     
 
 <script>
-var $tournamentGame = $('#tournamentGame');
-// When sport gets selected ...
+var $tournamentGame = $("#game_tournamentGame");
+// on choisit un type de jeu (tournoi ou classique par exemple)
 $tournamentGame.change(function() {
-  // ... retrieve the corresponding form.
+  // on récupère le formulaire sur lequel on est (au cas où il y en aurait plusieurs)
   var $form = $(this).closest('form');
-  // Simulate form data, but only include the selected sport value.
+  // on simule les données(nb de joueurs), mais seulement celles relatives au type de jeu sélectionné
   var data = {};
-  data[$tournamentGame] = $tournamentGame.val();
-  // Submit data via AJAX to the form's action path.
-  $.ajax({
+  data[$tournamentGame.attr('name')] = $tournamentGame.val();
+  // on soumet les data via Ajax, en suivant l'url dans l'attribut action du formulaire
+    $.ajax({
     url : $form.attr('action'),
     type: $form.attr('method'),
     data : data,
     complete: function(html) {
-      // Replace current position field ...
-      $('#nbTotalPlayer').replaceWith(
-        // ... with the returned one from the AJAX response.
-        $(html.responseText).find('#nbTotalPlayer')
+      // on remplace ce qui est présent dans le champs nb de joueurs...
+      $('#game_nbPlayer').replaceWith(
+        // ...avec ce qui a été récupéré dans la requête Ajax
+        $(html.responseText).find('#game_nbPlayer')
       );
-      // Position field now displays the appropriate positions.
+      // Maintenant le champs affiche les nb de joueurs disponibles (ceux associés au type de jeu choisi : tournoi ou classique)
     }
   });
-});
+  }
+);
 </script>
 {% endblock %}

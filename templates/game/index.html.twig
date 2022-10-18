@@ -15,7 +15,7 @@
                 <th>AuthorIsPlayer</th>
                 <th>Format</th>
                 <th>TournamentGame</th>
-                <th>Time</th>
+                <th>Heure</th>
                 <th>NbTotalPlayer</th>
                 <th>NbOfTeam</th>
                 <th>Address</th>
@@ -38,9 +38,9 @@
                 <td>{{ game.date ? game.date|date('Y-m-d') : '' }}</td>
                 <td>{{ game.authorIsPlayer ? 'Yes' : 'No' }}</td>
                 <td>{{ game.format }}</td>
-                <td>{{ game.tournamentGame ? 'Yes' : 'No' }}</td>
-                <td>{{ game.time ? game.time|date('H:i:s') : '' }}</td>
-                <td>{{ game.nbTotalPlayer }}</td>
+                <td>{{ game.tournamentGame.name }}</td>
+                <td>{{ game.date ? game.date|date('H:i') : '' }}</td>
+                <td>{{ game.nbPlayer.nb }}</td>
                 <td>{{ game.nbOfTeam }}</td>
                 <td>{{ game.address }}</td>
                 <td>{{ game.zipCode }}</td>

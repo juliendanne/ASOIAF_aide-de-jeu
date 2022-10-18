@@ -46,11 +46,6 @@ class Game
     private $description;
 
     /**
-     * @ORM\Column(type="date")
-     */
-    private $date;
-
-    /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $authorIsPlayer;
@@ -59,21 +54,6 @@ class Game
      * @ORM\Column(type="string", length=255)
      */
     private $format;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $tournamentGame;
-
-    /**
-     * @ORM\Column(type="time")
-     */
-    private $time;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $nbTotalPlayer;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -130,6 +110,23 @@ class Game
      * @ORM\OneToMany(targetEntity=Notification::class, mappedBy="game")
      */
     private $notifications;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=NbJoueur::class, inversedBy="games")
+     */
+    private $nbPlayer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TournamentGame::class, inversedBy="games")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tournamentGame;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date;
+
 
     public function __construct()
     {
@@ -233,18 +230,6 @@ class Game
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
     public function isAuthorIsPlayer(): ?bool
     {
         return $this->authorIsPlayer;
@@ -265,42 +250,6 @@ class Game
     public function setFormat(string $format): self
     {
         $this->format = $format;
-
-        return $this;
-    }
-
-    public function isTournamentGame(): ?bool
-    {
-        return $this->tournamentGame;
-    }
-
-    public function setTournamentGame(?bool $tournamentGame): self
-    {
-        $this->tournamentGame = $tournamentGame;
-
-        return $this;
-    }
-
-    public function getTime(): ?\DateTimeInterface
-    {
-        return $this->time;
-    }
-
-    public function setTime(\DateTimeInterface $time): self
-    {
-        $this->time = $time;
-
-        return $this;
-    }
-
-    public function getNbTotalPlayer(): ?int
-    {
-        return $this->nbTotalPlayer;
-    }
-
-    public function setNbTotalPlayer(?int $nbTotalPlayer): self
-    {
-        $this->nbTotalPlayer = $nbTotalPlayer;
 
         return $this;
     }
@@ -454,4 +403,42 @@ class Game
 
         return $this;
     }
+
+    public function getNbPlayer(): ?NbJoueur
+    {
+        return $this->nbPlayer;
+    }
+
+    public function setNbPlayer(?NbJoueur $nbPlayer): self
+    {
+        $this->nbPlayer = $nbPlayer;
+
+        return $this;
+    }
+
+    public function getTournamentGame(): ?TournamentGame
+    {
+        return $this->tournamentGame;
+    }
+
+    public function setTournamentGame(?TournamentGame $tournamentGame): self
+    {
+        $this->tournamentGame = $tournamentGame;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+
 }
