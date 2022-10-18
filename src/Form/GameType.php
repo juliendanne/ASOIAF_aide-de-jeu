@@ -184,13 +184,22 @@ class GameType extends AbstractType
                 'data'=>true,
                 "attr"=>[
                     'class'=>'ms-2',
-    
-                ],
+                                ],
                 'multiple'=> false,
                 'label'=>'Mode Tournoi',
                 'mapped' => true,
                 'required' => false
             ])
+         //   ->add('tournamentGame', CheckboxType::class, [
+         //       "attr"=>[
+         //           'class'=>'ms-2',
+         //       ],
+         //       'label'=>'Mode tournoi',
+         //       'mapped' => false,
+         //       'data'=>true,
+         //       'required'=>false
+//
+         //   ])
         ;
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
@@ -201,9 +210,10 @@ class GameType extends AbstractType
                 $tournamentGame = $event->getData();
                 
                 $multiplayer = $tournamentGame->isTournamentGame();
+                dd($multiplayer);
                 $nbTotalPlayer = null === $tournamentGame ? [] : $multiplayer;
 
-                if($nbTotalPlayer==true){
+                if($multiplayer==true){
                 $choice = ['2 joueurs'=>2,
                     '4 joueurs'=>4,
                     '6 joueurs'=>6,
