@@ -93,7 +93,7 @@ class GameType extends AbstractType
             ->add('nbOfGame', ChoiceType::class,[
                 'label' => 'Nombre de rondes',
                 'choices'=>[
-                    '1 rondes'=>1,
+                    '1 ronde'=>1,
                     '2 rondes'=>2,
                     '3 rondes'=>3,
                     '4 rondes'=>4,
@@ -147,6 +147,8 @@ class GameType extends AbstractType
             }
         );
         //--------------------------------------------
+
+  
     }
 
     public function configureOptions(OptionsResolver $resolver): void
