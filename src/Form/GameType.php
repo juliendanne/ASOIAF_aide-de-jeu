@@ -71,14 +71,14 @@ class GameType extends AbstractType
             ])
             
             ->add('format', ChoiceType::class,[
+                'label'=>'Format de joueurs',
                 'choices'=>[
-                    '1 VS 1'=>'1vs1',
-                    '2 VS 2'=>'2vs2',
-                    '3 VS 3'=>'3vs3',
+                    '1 VS 1'=>1,
+                    '2 VS 2'=>2,
+                    '3 VS 3'=>3,
                 ],
+                'multiple'=>false,
             ])
-            
-            
             ->add('time', TimeType::class)
             ->add('nbOfTeam', ChoiceType::class,[
                'label' => 'Nombre d\'équipes',
@@ -89,39 +89,34 @@ class GameType extends AbstractType
                    '6 équipes'=>6,
                    '8 équipes'=>8,
                    '10 équipes'=>10,
-
-               ],
-               ])
-            
+                ],
+            ])
             ->add('address', TextType::class, [
                 "attr"=>[
                     'class'=>'form-control',
-                    ],
+                ],
                 'label'=>'Adresse*',
-                ])
-            
+            ])
             ->add('zipCode', IntegerType::class, [
                 "attr"=>[
                     'class'=>'form-control',
-                    ],
+                ],
                 'label'=>'Code postal*',
-                ])
-            
+            ])
             ->add('city', TextType::class, [
                 "attr"=>[
                     'class'=>'form-control',
-                    ],
+                ],
                 'label'=>'Ville*',
-                ])
+            ])
 
             ->add('department', TextType::class, [
                 "attr"=>[
                     'class'=>'form-control',
-                    ],
+                ],
                 'label'=>'Département',
                 "required" => false
-                ])
-            
+            ])
             ->add('nbOfGame', ChoiceType::class,[
                 'label' => 'Nombre de rondes',
                 'choices'=>[
@@ -132,7 +127,7 @@ class GameType extends AbstractType
                    
 
                 ],
-                ])
+            ])
             ->add('playersjoined')
             ->add('region', EntityType::class, [
                 'class'=>Region::class,
@@ -140,7 +135,7 @@ class GameType extends AbstractType
                 'label_attr'=>['class'=>'me-1'],
                 'label'=>'Région',
                 'mapped'=>false
-                ])
+            ])
 
 
             ->add('tournamentGame', ChoiceType::class, [
@@ -148,15 +143,13 @@ class GameType extends AbstractType
                     'oui'=>true,
                     'non'=>false,
                 ],
-                'data'=>true,
+                'expanded'=>false,
                 "attr"=>[
                     'class'=>'ms-2',
                                 ],
                 'multiple'=> false,
                 'label'=>'Mode Tournoi',
-                'mapped' => true,
-                'required' => false
-                ])
+            ])
             ->add('nbTotalPlayer', ChoiceType::class,[
                 'label' => 'Nombres de joueurs',
                 'choices'=>[
@@ -171,13 +164,13 @@ class GameType extends AbstractType
                     '18 joueurs'=>18,
                     '20 joueurs'=>20,
                 ],
-                    'expanded'=>'false',
-                    'choice_attr'=>[
-                        'Accepter réservation'=>['class'=>'me-1'],
-                        'Refuser réservation'=>['class'=>'me-1 ms-5'],
-                    ]
-                 ])
-            ;
+                'expanded'=>'true',
+                'choice_attr'=>[
+                    'Accepter réservation'=>['class'=>'me-1'],
+                    'Refuser réservation'=>['class'=>'me-1 ms-5'],
+                ]
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

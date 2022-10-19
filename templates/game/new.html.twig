@@ -9,20 +9,6 @@
 
     <a href="{{ path('app_game_index') }}">back to list</a>
     
+<script src="{{ asset('/js/form_new_game.js') }}"></script>
 
-<script>
-var nbTotalPlayerElement = document.querySelector("#game_nbTotalPlayer");
-nbTotalPlayerElement.style.display = 'none';
-var selectElement = document.querySelector("#game_tournamentGame");
-selectElement.addEventListener('change',displayNbPlayer);
-
-function displayNbPlayer() {
-  console.log('coucou');
-  if(selectElement.value === '1'){
-    nbTotalPlayerElement.style.display = 'block';
-  } else {
-    nbTotalPlayerElement.style.display = 'none';
-  }
-}
-</script>
 {% endblock %}
