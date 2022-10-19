@@ -76,51 +76,22 @@ class GameType extends AbstractType
                     '2 VS 2'=>'2vs2',
                     '3 VS 3'=>'3vs3',
                 ],
-                //'expanded'=>'false',
-                //'choice_attr'=>[
-                //    'Accepter réservation'=>['class'=>'me-1'],
-                //    'Refuser réservation'=>['class'=>'me-1 ms-5'],
-                //]
-    
             ])
             
             
             ->add('time', TimeType::class)
-            
-            //->add('nbTotalPlayer', ChoiceType::class,[
-            //    'label' => 'Nombres de joueurs',
-            //    'choices'=>[
-            //        '2 joueurs'=>2,
-            //        '4 joueurs'=>4,
-            //        '6 joueurs'=>6,
-            //        '8 joueurs'=>8,
-            //        '10 joueurs'=>10,
-            //        '12 joueurs'=>12,
-            //        '14 joueurs'=>14,
-            //        '16 joueurs'=>16,
-            //        '18 joueurs'=>18,
-            //        '20 joueurs'=>20,
-            //    ],
-                                    //'expanded'=>'false',
-                                    //'choice_attr'=>[
-                                    //    'Accepter réservation'=>['class'=>'me-1'],
-                                    //    'Refuser réservation'=>['class'=>'me-1 ms-5'],
-                                    //]
-    
-            // ])
-            
-          //  ->add('nbOfTeam', ChoiceType::class,[
-          //      'label' => 'Nombre d\'équipes',
-          //      'choices'=>[
-          //          '0 équipes'=>0,
-          //          '2 équipes'=>2,
-          //          '4 équipes'=>4,
-          //          '6 équipes'=>6,
-          //          '8 équipes'=>8,
-          //          '10 équipes'=>10,
-//
-          //      ],
-          //      ])
+            ->add('nbOfTeam', ChoiceType::class,[
+               'label' => 'Nombre d\'équipes',
+               'choices'=>[
+                   '0 équipes'=>0,
+                   '2 équipes'=>2,
+                   '4 équipes'=>4,
+                   '6 équipes'=>6,
+                   '8 équipes'=>8,
+                   '10 équipes'=>10,
+
+               ],
+               ])
             
             ->add('address', TextType::class, [
                 "attr"=>[
@@ -162,18 +133,14 @@ class GameType extends AbstractType
 
                 ],
                 ])
-           // ->add('gameStatut')
-           // ->add('creationDate')
-           // ->add('modifDate')
-           // ->add('author')
-           // ->add('playersjoined')
-           ->add('region', EntityType::class, [
-            'class'=>Region::class,
-            'choice_label'=>'name',
-            //'label_attr'=>['class'=>'me-1'],
-            'label'=>'Région',
-            //'mapped'=>false
-            ])
+            ->add('playersjoined')
+            ->add('region', EntityType::class, [
+                'class'=>Region::class,
+                'choice_label'=>'name',
+                'label_attr'=>['class'=>'me-1'],
+                'label'=>'Région',
+                'mapped'=>false
+                ])
 
 
             ->add('tournamentGame', ChoiceType::class, [
@@ -189,32 +156,11 @@ class GameType extends AbstractType
                 'label'=>'Mode Tournoi',
                 'mapped' => true,
                 'required' => false
-            ])
-         //   ->add('tournamentGame', CheckboxType::class, [
-         //       "attr"=>[
-         //           'class'=>'ms-2',
-         //       ],
-         //       'label'=>'Mode tournoi',
-         //       'mapped' => false,
-         //       'data'=>true,
-         //       'required'=>false
-//
-         //   ])
-        ;
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-
-                // this would be your entity, i.e. SportMeetup
-                $tournamentGame = $event->getData();
-                
-                $multiplayer = $tournamentGame->isTournamentGame();
-                dd($multiplayer);
-                $nbTotalPlayer = null === $tournamentGame ? [] : $multiplayer;
-
-                if($multiplayer==true){
-                $choice = ['2 joueurs'=>2,
+                ])
+            ->add('nbTotalPlayer', ChoiceType::class,[
+                'label' => 'Nombres de joueurs',
+                'choices'=>[
+                    '2 joueurs'=>2,
                     '4 joueurs'=>4,
                     '6 joueurs'=>6,
                     '8 joueurs'=>8,
@@ -223,27 +169,15 @@ class GameType extends AbstractType
                     '14 joueurs'=>14,
                     '16 joueurs'=>16,
                     '18 joueurs'=>18,
-                    '20 joueurs'=>20,];
-                    
-                }else{
-                        $choice=[];
-                        
-                    }
-                
-
-                $form->add('nbTotalPlayer', ChoiceType::class, [
-                        'label' => 'Nombres de joueurs',
-                        'choices'=>$choice,
-                                            //'expanded'=>'false',
-                                            //'choice_attr'=>[
-                                            //    'Accepter réservation'=>['class'=>'me-1'],
-                                            //    'Refuser réservation'=>['class'=>'me-1 ms-5'],
-                                            //]
-            
-                     ]);
-                     var_dump($multiplayer);
-            }
-        );
+                    '20 joueurs'=>20,
+                ],
+                    'expanded'=>'false',
+                    'choice_attr'=>[
+                        'Accepter réservation'=>['class'=>'me-1'],
+                        'Refuser réservation'=>['class'=>'me-1 ms-5'],
+                    ]
+                 ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

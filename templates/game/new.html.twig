@@ -11,29 +11,18 @@
     
 
 <script>
-var tournamentGame = $('#game_tournamentGame');
-// When sport gets selected ...
-tournamentGame.change(function() {
-  // ... retrieve the corresponding form.
-  var $form = $(this).closest('form');
-  // Simulate form data, but only include the selected sport value.
-  var data = {};
-  data[tournamentGame] = parseInt(tournamentGame.val());
-  // Submit data via AJAX to the form's action path.
-  console.log(data[tournamentGame]);
-  $.ajax({
-    url : $form.attr('action'),
-    type: $form.attr('method'),
-    data : data,
-    complete: function(html) {
-      // Replace current position field ...
-      $('#game_nbTotalPlayer').replaceWith(
-        // ... with the returned one from the AJAX response.
-        $(html.responseText).find('#game_nbTotalPlayer')
-      );
-      // Position field now displays the appropriate positions.
-    }
-  });
-});
+var nbTotalPlayerElement = document.querySelector("#game_nbTotalPlayer");
+nbTotalPlayerElement.style.display = 'none';
+var selectElement = document.querySelector("#game_tournamentGame");
+selectElement.addEventListener('change',displayNbPlayer);
+
+function displayNbPlayer() {
+  console.log('coucou');
+  if(selectElement.value === '1'){
+    nbTotalPlayerElement.style.display = 'block';
+  } else {
+    nbTotalPlayerElement.style.display = 'none';
+  }
+}
 </script>
 {% endblock %}
