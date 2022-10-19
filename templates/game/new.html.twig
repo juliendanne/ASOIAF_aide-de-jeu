@@ -14,12 +14,17 @@
 var nbTotalPlayerElement = document.querySelector("#game_nbTotalPlayer");
 nbTotalPlayerElement.style.display = 'none';
 var selectElement = document.querySelector("#game_tournamentGame");
+var teamMode = document.querySelector("#game_format").value;
+var _24players = document.querySelector("#game_nbTotalPlayer_10");
+var _30players = document.querySelector("#game_nbTotalPlayer_11");
 selectElement.addEventListener('change',displayNbPlayer);
 
 function displayNbPlayer() {
   console.log('coucou');
   if(selectElement.value === '1'){
     nbTotalPlayerElement.style.display = 'block';
+    _24players.style.display = "none";
+    _30players.style.display = "none";
   } else {
     nbTotalPlayerElement.style.display = 'none';
   }

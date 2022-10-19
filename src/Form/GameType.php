@@ -170,11 +170,22 @@ class GameType extends AbstractType
                     '16 joueurs'=>16,
                     '18 joueurs'=>18,
                     '20 joueurs'=>20,
+                    '24 joueurs'=>24,
+                    '30 joueurs'=>30,
                 ],
                     'expanded'=>'false',
                     'choice_attr'=>[
-                        'Accepter réservation'=>['class'=>'me-1'],
-                        'Refuser réservation'=>['class'=>'me-1 ms-5'],
+                        '4 joueurs'=>['class'=>'tournament1v1class tournament2v2class'],
+                        '6 joueurs'=>['class'=>'tournament1v1class'],
+                        '8 joueurs'=>['class'=>'tournament1v1class tournament2v2class'],
+                        '10 joueurs'=>['class'=>'tournament1v1class'],
+                        '12 joueurs'=>['class'=>'tournament1v1class tournament2v2class tournament3v3class'],
+                        '14 joueurs'=>['class'=>'tournament1v1class'],
+                        '16 joueurs'=>['class'=>'tournament1v1class tournament2v2class'],
+                        '18 joueurs'=>['class'=>'tournament1v1class tournament2v2class tournament3v3class'],
+                        '20 joueurs'=>['class'=>'tournament1v1class tournament2v2class'],
+                        '24 joueurs'=>['class'=>'tournament3v3class'],
+                        '30 joueurs'=>['class'=>'tournament3v3class'],
                     ]
                  ])
             ;
