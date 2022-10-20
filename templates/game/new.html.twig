@@ -12,24 +12,41 @@
 
 <script>
 var nbTotalPlayerElement = document.querySelector("#game_nbTotalPlayer");
-nbTotalPlayerElement.style.display = 'none';
+//nbTotalPlayerElement.style.display = 'none';
 var selectElement = document.querySelector("#game_tournamentGame");
 var teamMode = document.querySelector("#game_format");
-var tournament1v1 = document.querySelector(".tournament1v1class");
-var tournament2v2 = document.querySelector(".tournament2v2class");
-var tournament3v3 = document.querySelector(".tournament3v3class");
+var tournament1v1 = document.querySelectorAll(".tournament1v1class");
+var tournament2v2 = document.querySelectorAll(".tournament2v2class");
+var tournament3v3 = document.querySelectorAll(".tournament3v3class");
+tournament1v1.style.display = 'none';
+tournament2v2.style.display = 'none';
+tournament3v3.style.display = 'none';
 selectElement.addEventListener('change',displayNbPlayer);
 teamMode.addEventListener('change',displayNbPlayer);
 
 
 function displayNbPlayer() {
   console.log('coucou');
-  if(selectElement.value === '1' && teamMode.value == '1vs1'){
+  if(selectElement.value == '1'){
+    if(teamMode.value == '1vs1'){
     tournament1v1.style.display = 'block';
+    tournament2v2.style.display = 'none';
+tournament3v3.style.display = 'none';
+    }
+    else if(teamMode.value== '2vs2'){
+      tournament1v1.style.display = 'none';
+      tournament3v3.style.display = 'none';
+      tournament2v2.style.display = 'block';
+    }
+    else if(teamMode.value == '3vs3'){
+      tournament3v3.style.display = 'block';
+    }
 console.log(teamMode.value);
 console.log(selectElement.value);
-  } else {
-    nbTotalPlayerElement.style.display = 'none';
+  } else {tournament1v1.style.display = 'none';
+tournament2v2.style.display = 'none';
+tournament3v3.style.display = 'none';
+    
   }
 }
 </script>
