@@ -14,17 +14,20 @@
 var nbTotalPlayerElement = document.querySelector("#game_nbTotalPlayer");
 nbTotalPlayerElement.style.display = 'none';
 var selectElement = document.querySelector("#game_tournamentGame");
-var teamMode = document.querySelector("#game_format").value;
-var _24players = document.querySelector("#game_nbTotalPlayer_10");
-var _30players = document.querySelector("#game_nbTotalPlayer_11");
+var teamMode = document.querySelector("#game_format");
+var tournament1v1 = document.querySelector(".tournament1v1class");
+var tournament2v2 = document.querySelector(".tournament2v2class");
+var tournament3v3 = document.querySelector(".tournament3v3class");
 selectElement.addEventListener('change',displayNbPlayer);
+teamMode.addEventListener('change',displayNbPlayer);
+
 
 function displayNbPlayer() {
   console.log('coucou');
-  if(selectElement.value === '1'){
-    nbTotalPlayerElement.style.display = 'block';
-    _24players.style.display = "none";
-    _30players.style.display = "none";
+  if(selectElement.value === '1' && teamMode.value == '1vs1'){
+    tournament1v1.style.display = 'block';
+console.log(teamMode.value);
+console.log(selectElement.value);
   } else {
     nbTotalPlayerElement.style.display = 'none';
   }
