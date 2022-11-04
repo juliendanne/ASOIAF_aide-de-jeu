@@ -1,0 +1,132 @@
+
+
+
+<header id="header">
+{#     <div class="header_titre">
+    <h1 class="header_titre_texte">ASOIAF_aide-de-jeu</h1>
+    </div> #}
+            {% if app.user %}
+            <a class="navbar-brand" href="#">Bonjour, {{ app.user.firstname|capitalize }} {{ app.user.name|capitalize }}</a>
+            {% else %}
+            <a class="navbar-brand" href="#">Bonjour,</a>
+            {% endif %}
+    <nav class="navbar navbar-expand-xxl bg-light">
+
+        <div class="container-fluid">
+
+            {# <div class="display_menu"> #}
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button> 
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                        </li>
+
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_register')  }}">S'inscrire</a>
+                        </li> 
+                        {% endif %}
+                         {% if regions is defined %} 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Chercher une partie
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% for region in regions %}
+                                <li><a class="dropdown-item" href="{{ path('app_game_by_region',{'id':region.id}) }}">{{ region.name }}</a></li>
+                            {% endfor %}
+                            </ul> 
+                        </li>
+                         {% endif %} 
+
+                        {% if app.user  %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Mes notifications
+ {#                            {% if notifmenu|length != 0 %}
+                            <span class="badge text-bg-danger ms-1">
+                            {{ notifmenu|length }}
+                            </span>
+                            {% endif %} #}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ path('app_notification_index') }}">Notifications en cours</a></li>
+                                {# <li><a class="dropdown-item" href="{{ path('app_notification_archive') }}">Notifications archivées</a></li> #}
+                            </ul>
+                        </li>
+                        {% endif %}
+                        {% if app.user %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Mes parties
+{#                             {% if admenu|length != 0 %}
+                            <span class="badge text-bg-danger ms-1">
+                            {{ admenu|length }}
+                            </span>
+                            {% endif %} #}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ path('app_game_of_player') }}">Mes parties joueur</a></li>
+                          
+                                <li><a class="dropdown-item" href="{{ path('app_game_index') }}">Mes parties organisateur</a></li>
+                           
+                            </ul>
+                        </li>
+                        {% endif %}
+                        {% if app.user %}
+                                <a class="nav-link" href="{{ path('app_game_new') }}">Créer nouvelle partie</a>
+                        {% endif %}
+
+                        <img class="image-logo" src="{{ asset('/images/logo2.png') }}" alt=""> 
+
+                        {% if app.user %}
+                                <a class="nav-link" href="{{ path('app_user_index') }}">Mon profil</a>
+                        {% endif %}  
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"        aria-expanded="false">
+                                Back-office
+{#                                 {% if validOwner|length != 0 %}
+                                <span class="badge text-bg-danger ms-1">
+                                {{ validOwner|length }}
+                                </span>
+                                {% endif %} #}
+                                </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ path('app_game_index') }}">Gérer les parties</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_region_index') }}">Gérer les régions</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_team_index') }}">Gérer les équipes</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_notification_index') }}">Gérer les notifications</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_user_index') }}">
+                                Gérer les Utilisateurs
+{#                                 {% if validOwner|length != 0 %}
+                                <span class="badge text-bg-danger ms-1">
+                                {{ validOwner|length }}
+                                </span>
+                                {% endif %} #}</a></li>
+                            </ul>
+                        </li>
+                        {% endif %}
+                                                        
+                    </ul>
+
+                </div>
+            {# </div>     #}
+            <form class="searchbar"id= "searchbox " method="post">
+                <input id='critere' size= "15″" placeholder= "C'est ici… " />
+                <button id= "button-submit " type= "button" onclick="submitSearch()">Rechercher</button>
+            </form>
+
+        </div>
+    </nav>
+    <div class="tracing"><hr></div>
+    <div class="tracing2"><hr></div> 
+</header>

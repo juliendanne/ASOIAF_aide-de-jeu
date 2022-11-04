@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Team;
 use App\Form\TeamType;
+use App\Form\JoinTeamType;
+use App\Form\QuitTeamType;
 use App\Repository\TeamRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/team")
@@ -71,6 +73,48 @@ class TeamController extends AbstractController
         }
 
         return $this->renderForm('team/edit.html.twig', [
+            'team' => $team,
+            'form' => $form,
+        ]);
+    }
+        /**
+     * @Route("/join_team/{id}", name="app_join_team", methods={"GET", "POST"})
+     */
+    public function join_team(Request $request, Team $team, TeamRepository $teamRepository): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(JoinTeamType::class, $team);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $team->addPlayersInTeam($user);
+            $teamRepository->add($team, true);
+
+            return $this->redirectToRoute('app_team_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('team/join_team.html.twig', [
+            'team' => $team,
+            'form' => $form,
+        ]);
+    }
+            /**
+     * @Route("/quit_team/{id}", name="app_quit_team", methods={"GET", "POST"})
+     */
+    public function quit_team(Request $request, Team $team, TeamRepository $teamRepository): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(QuitTeamType::class, $team);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $team->removePlayersInTeam($user);
+            $teamRepository->add($team, true);
+
+            return $this->redirectToRoute('app_team_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('team/quit_team.html.twig', [
             'team' => $team,
             'form' => $form,
         ]);

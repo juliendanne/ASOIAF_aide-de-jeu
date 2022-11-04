@@ -7,21 +7,58 @@ nbTotalPlayerElement.previousSibling.style.display = 'none';
 var selectElement = document.querySelector("#game_tournamentGame");
 formatElement.addEventListener('change',displayNbPlayer);
 selectElement.addEventListener('change',displayNbPlayer);
+var nbOfTeamElement = document.querySelector("#game_nbOfTeam");
+nbOfTeamElement.style.display = 'none';
+nbOfTeamElement.previousSibling.style.display = 'none';
+var nbOfPlayerValue = '';
 
 function displayNbPlayer() {
   // on créé un tableau qui contiendra toutes les options (label et input)
   var nodes = nbTotalPlayerElement.childNodes;
+  
   // par défaut chaque élément de ce tableau sera visible (cet état sera initialisé à chaque fois que l'on lancera la fonction)
   for(var i=0; i<nodes.length; i++){
     nodes[i].style.display = '';
+    
   }
   // si on choisit mode tournoi
   if(selectElement.value === '1'){
     // si on choisit 1vs1 ou 2vs2
-    if(formatElement.value == 1 || formatElement.value == 2){
+    if(formatElement.value == 1){
       // on affichera toutes les options de nombres de joueurs
       nbTotalPlayerElement.style.display = '';
       nbTotalPlayerElement.previousSibling.style.display = '';
+      for(var i=0; i<nodes.length; i++){
+        var nbPlayer = parseInt(nodes[i].value);
+        // si l'élément input a une value qui n'est pas multiple de 3...
+        if(nbPlayer%2 != 0 && !isNaN(nbPlayer) || nbPlayer>20){
+          // ...on ne l'affiche pas...
+          nodes[i].style.display = 'none';
+          // ...même traitement pour le label qui lui est associé (nextSibling permet de sélectionner l'élément suivant parmi les enfants su même parent(https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling))
+          nodes[i].nextSibling.style.display = 'none';
+        }
+      }
+    }
+    else if(formatElement.value == 2){
+      // on affichera toutes les options de nombres de joueurs
+      nbTotalPlayerElement.style.display = '';
+      nbTotalPlayerElement.previousSibling.style.display = '';
+      for(var i=0; i<nodes.length; i++){
+        var nbPlayer = parseInt(nodes[i].value);
+
+       //nodes[i].addEventListener('click', displayNbTeam);
+        
+        
+
+        // si l'élément input a une value qui n'est pas multiple de 4...
+        if((nbPlayer%4 != 0 && !isNaN(nbPlayer)) || nbPlayer>20){
+          // ...on ne l'affiche pas...
+          nodes[i].style.display = 'none';
+          // ...même traitement pour le label qui lui est associé (nextSibling permet de sélectionner l'élément suivant parmi les enfants su même parent(https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling))
+          nodes[i].nextSibling.style.display = 'none';
+        }
+      }
+    
 
     // si on choisit 3vs3
     } else if(formatElement.value == 3) {
@@ -51,3 +88,32 @@ function displayNbPlayer() {
     nbTotalPlayerElement.previousSibling.style.display = 'none';
   }
 }
+
+/* function displayNbTeam(e){
+
+  var nodes = nbTotalPlayerElement.childNodes;
+  nbOfPlayerValue = parseInt(e.currentTarget.value);
+  console.log(nbOfPlayerValue);
+  var teamNodes = nbOfTeamElement.childNodes;
+  for(var i=0; i<teamNodes.length; i++){
+    teamNodes[i].style.display = '';
+  }
+  console.log(teamNodes);
+  if(formatElement.value == 2){
+    nbOfTeamElement.style.display = '';
+    nbOfTeamElement.previousSibling.style.display = '';
+    for(var i=0; i<teamNodes.length; i++){
+      var nbTeam = parseInt(teamNodes[i].value);
+  console.log(nbTeam);
+      if(nbTeam != nbOfPlayerValue/2 ){
+        teamNodes[i].style.display = 'none';
+        //teamNodes[i].nextSibling.style.display = 'none';
+      }
+    }
+
+  }else{
+    nbOfTeamElement.style.display = 'none';
+    nbOfTeamElement.previousSibling.style.display = 'none';
+
+  }
+} */

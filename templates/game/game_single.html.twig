@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Game{% endblock %}
+
+{% block body %}
+    <h1>Game</h1>
+
+
+
+                <h5> Date : {{ game.date|date('Y-m-d') }} - {{ game.time|date('H:i:s') }}</h5>
+                <h5> Nom de la partie : {{ game.name }}</h5>
+                <h5> Description : {{ game.description }}</h5>
+                <h5> Format : {{ game.format }} vs {{ game.format }}</h5>
+                <h5> Mode tournoi : {{ game.tournamentGame ? 'Yes' : 'No' }}</h5>
+                <h5> Nombre de rondes : {{ game.nbOfGame }}</h5>
+                <h5> Nombre de joueurs : {{ game.playersjoined|length }}/{{ game.nbTotalPlayer }}</h5>
+                <h5> Adresse : {{ game.address }}</h5>
+                <h5> Code postal : {{ game.zipcode }}</h5>
+                <h5> Ville : {{ game.city }}</h5>
+                <h5> Département : {{ game.department }}</h5>
+                <h5> Région : {{ game.region.name }}</h5>
+
+
+    
+                <h5 class="interlignage_title_team_game_single">Équipes : </h5>
+                <h5>
+                {% for team in teams %}
+
+                    {% for player in team.playersInTeam %}
+                        {% if user.id != player.id %}
+                            {% for team in teams %}
+
+                                {% if team.name != '' %}
+                                    <p class="interlignage_team_game_single"><a href="{{ path('app_join_team', {'id':team.id}) }}">- Rejoindre équipe {{ team.name }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, </a></p>{% endfor %}
+                                {% else %}
+                                    <p class="interlignage_team_game_single"><a href="{{ path('app_join_team', {'id':team.id}) }}">- Rejoindre équipe {{ team.id }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, </a></p>{% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            {% for team in teams %}
+                                {% if team.name != '' %}
+                                    <p class="interlignage_team_game_single"><a >- Équipe : {{ team.name }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, </a></p>{% endfor %}
+                                {% else %}
+                                    <p class="interlignage_team_game_single"><a >- Équipe {{ team.id }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, </a></p>{% endfor %}
+                                {% endif %}
+                
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </h5> 
+                 
+
+
+    <a href="{{ path('app_game_index') }}">back to list</a>
+
+    <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
+
+    {{ include('game/_delete_form.html.twig') }}
+{% endblock %}

@@ -44,6 +44,7 @@ class GameType extends AbstractType
                 'class'=>'form-control',
                 ],
             'label'=>'Titre',
+
             ])
             ->add('description', TextareaType::class, [
             "attr"=>[
@@ -83,13 +84,15 @@ class GameType extends AbstractType
             ->add('nbOfTeam', ChoiceType::class,[
                'label' => 'Nombre d\'équipes',
                'choices'=>[
-                   '0 équipes'=>0,
+                   //'0 équipes'=>0,
                    '2 équipes'=>2,
                    '4 équipes'=>4,
                    '6 équipes'=>6,
                    '8 équipes'=>8,
                    '10 équipes'=>10,
                 ],
+                
+
             ])
             ->add('address', TextType::class, [
                 "attr"=>[
@@ -128,13 +131,13 @@ class GameType extends AbstractType
 
                 ],
             ])
-            ->add('playersjoined')
+           // ->add('playersjoined')
             ->add('region', EntityType::class, [
                 'class'=>Region::class,
                 'choice_label'=>'name',
                 'label_attr'=>['class'=>'me-1'],
                 'label'=>'Région',
-                'mapped'=>false
+                //'mapped'=>false
             ])
 
 
@@ -163,6 +166,8 @@ class GameType extends AbstractType
                     '16 joueurs'=>16,
                     '18 joueurs'=>18,
                     '20 joueurs'=>20,
+                    '24 joueurs'=>24,
+                    '30 joueurs'=>30,
                 ],
                 'expanded'=>'true',
                 'choice_attr'=>[

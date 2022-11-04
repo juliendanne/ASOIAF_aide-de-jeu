@@ -14,10 +14,10 @@ class TeamType extends AbstractType
         $builder
             ->add('teamStatut')
             ->add('name')
-            ->add('creationDate')
-            ->add('modifDate')
-            ->add('teamLinkForGame')
-            ->add('playersInTeam')
+            //->add('creationDate')
+            //->add('modifDate')
+            //->add('teamLinkForGame')
+            //->add('playersInTeam')
         ;
     }
 

@@ -31,6 +31,7 @@
         </thead>
         <tbody>
         {% for game in games %}
+        {% if user.id == game.author.id or is_granted('ROLE_ADMIN') %}
             <tr>
                 <td>{{ game.id }}</td>
                 <td>{{ game.name }}</td>
@@ -50,11 +51,18 @@
                 <td>{{ game.gameStatut }}</td>
                 <td>{{ game.creationDate ? game.creationDate|date('Y-m-d') : '' }}</td>
                 <td>{{ game.modifDate ? game.modifDate|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_game_show', {'id': game.id}) }}">show</a>
-                    <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
+                <td class="btn_action">
+                    <div class="btn_group">
+                        <a class="show_btn" href="{{ path('app_game_show', {'id': game.id}) }}">show</a>
+                        <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
+                    </div>    
+                    {% for team in teams %}
+                    {% if game.id == team.teamLinkForGame.id %}
+                    <a href="{{ path('app_team_edit', {'id': team.id}) }}">éditer équipe {{ team.id }}</a>
+                    {% endif %}
+                    {% endfor %}
                 </td>
-            </tr>
+            </tr>{% endif %}
         {% else %}
             <tr>
                 <td colspan="19">no records found</td>
