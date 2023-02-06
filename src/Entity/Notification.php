@@ -25,10 +25,7 @@ class Notification
      */
     private $notifAuthor;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="notifsOfAddressee")
-     */
-    private $addressee;
+ 
 
     /**
      * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="notifications")
@@ -60,6 +57,17 @@ class Notification
      */
     private $modifDate;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="notifications")
+     */
+    private $addressee;
+
+
+
+
+
+
+
     public function __construct()
     {
         $this->addressee = new ArrayCollection();
@@ -82,29 +90,7 @@ class Notification
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getAddressee(): Collection
-    {
-        return $this->addressee;
-    }
-
-    public function addAddressee(User $addressee): self
-    {
-        if (!$this->addressee->contains($addressee)) {
-            $this->addressee[] = $addressee;
-        }
-
-        return $this;
-    }
-
-    public function removeAddressee(User $addressee): self
-    {
-        $this->addressee->removeElement($addressee);
-
-        return $this;
-    }
+ 
 
     public function getGame(): ?Game
     {
@@ -177,4 +163,22 @@ class Notification
 
         return $this;
     }
+
+    public function getAddressee(): ?User
+    {
+        return $this->addressee;
+    }
+
+    public function setAddressee(?User $addressee): self
+    {
+        $this->addressee = $addressee;
+
+        return $this;
+    }
+
+
+
+
+
+
 }

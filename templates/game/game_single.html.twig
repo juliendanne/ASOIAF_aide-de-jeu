@@ -3,6 +3,7 @@
 {% block title %}Game{% endblock %}
 
 {% block body %}
+<main>
     <h1>Game</h1>
 
 
@@ -24,30 +25,206 @@
     
                 <h5 class="interlignage_title_team_game_single">Équipes : </h5>
                 <h5>
-                {% for team in teams %}
-
-                    {% for player in team.playersInTeam %}
-                        {% if user.id != player.id %}
-                            {% for team in teams %}
-
-                                {% if team.name != '' %}
-                                    <p class="interlignage_team_game_single"><a href="{{ path('app_join_team', {'id':team.id}) }}">- Rejoindre équipe {{ team.name }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, </a></p>{% endfor %}
-                                {% else %}
-                                    <p class="interlignage_team_game_single"><a href="{{ path('app_join_team', {'id':team.id}) }}">- Rejoindre équipe {{ team.id }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, </a></p>{% endfor %}
-                                {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            {% for team in teams %}
-                                {% if team.name != '' %}
-                                    <p class="interlignage_team_game_single"><a >- Équipe : {{ team.name }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, </a></p>{% endfor %}
-                                {% else %}
-                                    <p class="interlignage_team_game_single"><a >- Équipe {{ team.id }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, </a></p>{% endfor %}
-                                {% endif %}
                 
-                            {% endfor %}
+
+ {#                {% set x = [] %}
+                {% set m = 0 %}
+                {% set n = 0 %}
+                {% for team in teams %}
+                    {% if user != null %}
+                        {% for player in team.playersInTeam %}
+                               
+                            {% if player.id == user.id %}
+                                {% set m = m + 1 %}
+                                
+                            {% else %}
+                                  {% set x = x|merge([1]) %}   
+                            {% endif %}
+                             
+                        {% endfor %}
+                        
+                    {% endif %}
+                {% endfor %} #}
+                {# y = nb de joueurs en dehors de l'utilisateur connecté #}
+  {#               {% set y = x|length %}
+                {{ y }}
+                {% for team in teams %} #}
+{#                     {% if user != null %}
+                        {% for player in team.playersInTeam %}
+                               
+                            {% if player.id == user.id %}
+                                {% set m = m + 1 %}
+                                
+                            {% else %}
+                                  {% set x = x|merge([1]) %}   
+                            {% endif %}
+                             
+                        {% endfor %}
+                        {{ x|length }}
+                    {% endif %} #}
+
+                    {# n = nb de joueur par équipe #}
+                   {#  {% set n = n + team.playersInTeam|length %}
+                
+                    {% if n == 0 and user != null %}
+                                {% if team.name != '' %}
+                                    {% if team.playersInTeam|length < game.format %}
+                                        <p class="interlignage_team_game_single"> - <a href="{{ path('app_join_team', {'id':team.id}) }}">Rejoindre équipe {{ team.name }}</a> : {% for player in team.playersInTeam %}<a>{{ player.login }}, {% endfor %}</a></p>
+                                    {% else %}
+                                        <p class="interlignage_team_game_single"><a >- Équipe : {{ team.name }} : {% for player in team.playersInTeam %} {{ player.login }}, {% endfor %}</a></p>
+                                    {% endif %}
+                                {% else %}
+                                    {% if team.playersInTeam|length < game. format %}
+                                        <p class="interlignage_team_game_single"> - <a href="{{ path('app_join_team', {'id':team.id}) }}">Rejoindre équipe {{ team.id }}</a> : {% for player in team.playersInTeam %}<a>{{ player.login }}, {% endfor %}</a></p>
+                                    {% else %}
+                                        <p class="interlignage_team_game_single"><a >- Équipe {{ team.id }} : {% for player in team.playersInTeam %} {{ player.login }}, {% endfor %}</a></p>
+                                    {% endif %}
+                                {% endif %}
+
+                    {% elseif n != 0 and user != null and m != 0 %}
+                        
+                        
+                        {% for player in team.playersInTeam %}
+                              
+                            {% if player.id == user.id %}
+                              
+                                {% for team in teams %}
+                                        {% if team.name != '' %}
+
+                                                <p class="interlignage_team_game_single"><a >- Équipe : {{ team.name }} : {% for player in team.playersInTeam %} {{ player.login }}, {% endfor %}</a></p>
+
+                                        {% else %}
+
+                                                <p class="interlignage_team_game_single"><a >- Équipe {{ team.id }} : {% for player in team.playersInTeam %} {{ player.login }}, {% endfor %}</a></p>
+
+                                        {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                    {% elseif n != 0 and user != null and m == 0 and y == game.playersjoined|length %}    
+                            <h1>hello</h1>
+
+
+
+                                {% for team in teams %}
+                                
+                                    {% if team.name != '' %}
+                                        {% if team.playersInTeam|length < game.format %}
+                                            <p class="interlignage_team_game_single"> - <a href="{{ path('app_join_team', {'id':team.id}) }}">Rejoindre équipe {{ team.name }}</a> : {% for player in team.playersInTeam %}<a>{{ player.login }}, {% endfor %}</a></p>
+                                        {% else %}
+                                            <p class="interlignage_team_game_single"><a >- Équipe : {{ team.name }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, {% endfor %}</a></p>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if team.playersInTeam|length < game. format %}
+                                            <p class="interlignage_team_game_single"> - <a href="{{ path('app_join_team', {'id':team.id}) }}">Rejoindre équipe {{ team.id }}</a> : {% for player in team.playersInTeam %}<a>{{ player.login }}, {% endfor %}</a></p>
+                                        {% else %}
+                                            <p class="interlignage_team_game_single"><a >- Équipe {{ team.id }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, {% endfor %}</a></p>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            
+                        
+                    {% elseif user == null %}
+                            
+                                    
+                                {% if team.name != '' %}
+                                    {% if team.playersInTeam|length < game.format %}
+                                        <p class="interlignage_team_game_single"> - <a href="{{ path('app_login') }}">Rejoindre équipe {{ team.name }}</a> : {% for player in team.playersInTeam %}<a> {{ player.login }}, {% endfor %}</a></p>
+                                    {% else %}
+                                        <p class="interlignage_team_game_single"><a >- Équipe : {{ team.name }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, {% endfor %}</a></p>
+                                    {% endif %}
+                                {% else %}
+                                    {% if team.playersInTeam|length < game. format %}
+                                        <p class="interlignage_team_game_single"> - <a href="{{ path('app_login') }}">Rejoindre équipe {{ team.id }}</a> : {% for player in team.playersInTeam %}<a> {{ player.login }}, {% endfor %}</a></p>
+                                    {% else %}
+                                        <p class="interlignage_team_game_single"><a >- Équipe {{ team.id }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, {% endfor %}</a></p>
+                                    {% endif %}
+                                {% endif %}
+                                
+                    {% else %} #}
+                            
+                                
+{#                                     {% if team.name != '' %}
+                                        <p class="interlignage_team_game_single"><a >- Équipe : {{ team.name }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, </a></p>{% endfor %}
+                                    {% else %}
+                                        <p class="interlignage_team_game_single"><a >- Équipeooo {{ team.id }} : </a>{% for player in team.playersInTeam %}<a>{{ player.login }}, </a></p>{% endfor %}
+                                    {% endif %} #}
+                                         
+
+                                
+                                
+                  
+                                                
+
+ {# 
+                    {% endif %}
+                {% endfor %} #}
+                {# on créer un condition false, l'utilisateur connecté n'est pas inscrit dans la partie #}
+                {% set condition = false %}
+                {# si l'utilisateur est connecté et que son statut n'est pas désactivé #}
+                {% if app.user and user.statut != 1 %}
+                {# on boucle sur les équipes #}
+                    {% for team in teams %}
+                    {# on boucle sur les joueurs dans les équipes #}
+                        {% for player in team.playersInTeam %}
+                            {# si l'utilisateur connecté  est égal à utilisateur enregistré dans l'équipe #}
+                            {% if user == player %}
+                                {# alors #}
+                                {% set condition = true %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+                {# si l'utilisateur n'est pas connecté, ou l'utilisateur connecté n'est pas enregistré dans une équipe #}
+                {% if not app.user or condition == false %}
+                    {# on boucle sur les équipes #}
+                    {% for team in teams %}
+                        {# si le nombre de joueur dans l'équipe est inférieur au nombre de joueur du format de partie #}
+                        {% if team.playersInteam|length < game.format %}
+                            {# si l'utilisateur est connecté (mais pas inscrit à la partie, ref plus haut) #}
+                            {% if app.user %}
+                                {# si l'équipe est nommée on affiche le lien pour rejoindre l'équipe nommée #}
+                                {% if team.name != '' %} 
+                                    <p class="interlignage_team_game_single"> - <a href="{{ path('app_join_team', {'id':team.id}) }}">Rejoindre équipe {{ team.name }}</a> : {% for player in team.playersInTeam %}<a>{{ player.login }}, {% endfor %}</a></p>
+                                {# si l'équipe n'est pas nommée on affiche le lien pour rejoindre l'équipe numméroté #}
+                                {% else %}
+                                    <p class="interlignage_team_game_single"> - <a href="{{ path('app_join_team', {'id':team.id}) }}">Rejoindre équipe {{ team.id }}</a> : {% for player in team.playersInTeam %}<a>{{ player.login }}, {% endfor %}</a></p>
+                                {% endif %}
+                            {# sinon (utilisateur non connecté) #}
+                            {% else %}
+                                {# si l'équipe est nommée on affiche le lien pour rejoindre l'équipe nommée #}
+                                {% if team.name != '' %} 
+                                    <p class="interlignage_team_game_single"> - <a href="{{ path('app_login') }}">Rejoindre équipe {{ team.name }}</a> : {% for player in team.playersInTeam %}<a>{{ player.login }}, {% endfor %}</a></p>
+                                {# si l'équipe n'est pas nommée on affiche le lien pour rejoindre l'équipe numméroté #}
+                                {% else %}
+                                    <p class="interlignage_team_game_single"> - <a href="{{ path('app_login') }}">Rejoindre équipe {{ team.id }}</a> : {% for player in team.playersInTeam %}<a>{{ player.login }}, {% endfor %}</a></p>
+                                {% endif %}
+                            {% endif %}
+                        {# sinon le nombre de joueur dans l'équipe est égal au nombre de joueur du format de partie (équipe pleine) #}
+                        {% else %}
+                            {# si l'équipe est nommé on affiche la composition de l'équipe nommée #}
+                            {% if team.name != '' %}
+                                <p class="interlignage_team_game_single"><a >- Équipe : {{ team.name }} : {% for player in team.playersInTeam %} {{ player.login }}, {% endfor %}</a></p>
+                            {# si l'équipe n'est pas nommée, on affiche la composition de l'équipe nummérotée #}
+                            {% else %}
+                                <p class="interlignage_team_game_single"><a >- Équipe {{ team.id }} : {% for player in team.playersInTeam %} {{ player.login }}, {% endfor %}</a></p>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
-                {% endfor %}
+                {# si l'utilisateur est connecté et inscrit à la partie #}
+                {% else %}
+                    {# on boucle sur les équipes #}
+                    {% for team in teams %}
+                        {# si l'équipe est nommée #}
+                        {% if team.name != '' %}
+                            <p class="interlignage_team_game_single"><a >- Équipe : {{ team.name }} : {% for player in team.playersInTeam %} {{ player.login }}, {% endfor %}</a></p>
+                        {# si l'équipe n'est pas nommée #}
+                        {% else %}
+                            <p class="interlignage_team_game_single"><a >- Équipe {{ team.id }} : {% for player in team.playersInTeam %} {{ player.login }}, {% endfor %}</a></p>
+                        {% endif %} 
+                    {% endfor %}
+                {% endif %}   
                 </h5> 
                  
 
@@ -57,4 +234,5 @@
     <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
 
     {{ include('game/_delete_form.html.twig') }}
+    </main>
 {% endblock %}

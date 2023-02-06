@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StatutPlayer index{% endblock %}
+
+{% block body %}
+    <h1>StatutPlayer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for statut_player in statut_players %}
+            <tr>
+                <td>{{ statut_player.id }}</td>
+                <td>{{ statut_player.name }}</td>
+                <td>
+                    <a href="{{ path('app_statut_player_show', {'id': statut_player.id}) }}">show</a>
+                    <a href="{{ path('app_statut_player_edit', {'id': statut_player.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_statut_player_new') }}">Create new</a>
+{% endblock %}

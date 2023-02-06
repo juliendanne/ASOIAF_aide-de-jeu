@@ -20,22 +20,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class GameType extends AbstractType
 {
-    public static function getSubscribedEvents(): array
-    {
-        // Tells the dispatcher that you want to listen on the form.pre_set_data
-        // event and that the preSetData method should be called.
-        return [FormEvents::PRE_SET_DATA => 'preSetData'];
-    }
-    public function preSetData(FormEvent $event): void
-    {
-        $tournamentGame = $event->getData();
-        $form = $event->getForm();
-        $multiplayer = $tournamentGame->isTournamentGame();
-
-        if ($multiplayer == true) {
-            $form->add('xxxxxxxxxxxxxx', TextType::class);
-        }
-    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -44,7 +28,6 @@ class GameType extends AbstractType
                 'class'=>'form-control',
                 ],
             'label'=>'Titre',
-
             ])
             ->add('description', TextareaType::class, [
             "attr"=>[
@@ -60,7 +43,6 @@ class GameType extends AbstractType
                 'widget' => 'choice',
                 'years' => range(date('Y')+0,date('Y')+1)
             ])
-            
             ->add('authorIsPlayer', CheckboxType::class, [
                 "attr"=>[
                     'class'=>'ms-2',
@@ -70,7 +52,6 @@ class GameType extends AbstractType
                 'mapped' => true,
                 'required' => false
             ])
-            
             ->add('format', ChoiceType::class,[
                 'label'=>'Format de joueurs',
                 'choices'=>[
@@ -84,15 +65,12 @@ class GameType extends AbstractType
             ->add('nbOfTeam', ChoiceType::class,[
                'label' => 'Nombre d\'équipes',
                'choices'=>[
-                   //'0 équipes'=>0,
                    '2 équipes'=>2,
                    '4 équipes'=>4,
                    '6 équipes'=>6,
                    '8 équipes'=>8,
                    '10 équipes'=>10,
                 ],
-                
-
             ])
             ->add('address', TextType::class, [
                 "attr"=>[
@@ -112,7 +90,6 @@ class GameType extends AbstractType
                 ],
                 'label'=>'Ville*',
             ])
-
             ->add('department', TextType::class, [
                 "attr"=>[
                     'class'=>'form-control',
@@ -127,8 +104,6 @@ class GameType extends AbstractType
                     '2 rondes'=>2,
                     '3 rondes'=>3,
                     '4 rondes'=>4,
-                   
-
                 ],
             ])
            // ->add('playersjoined')
@@ -139,8 +114,6 @@ class GameType extends AbstractType
                 'label'=>'Région',
                 //'mapped'=>false
             ])
-
-
             ->add('tournamentGame', ChoiceType::class, [
                 'choices' => [
                     'oui'=>true,
@@ -170,10 +143,6 @@ class GameType extends AbstractType
                     '30 joueurs'=>30,
                 ],
                 'expanded'=>'true',
-                'choice_attr'=>[
-                    'Accepter réservation'=>['class'=>'me-1'],
-                    'Refuser réservation'=>['class'=>'me-1 ms-5'],
-                ]
             ])
         ;
     }

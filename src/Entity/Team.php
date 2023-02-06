@@ -49,9 +49,18 @@ class Team
      */
     private $modifDate;
 
+    /**
+     * @ORM\OneToMany(targetEntity=StatutPlayer::class, mappedBy="teams", cascade={"persist"})
+     */
+    private $statutPlayers;
+
+
+
     public function __construct()
     {
         $this->playersInTeam = new ArrayCollection();
+        $this->statutPlayers = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -142,4 +151,36 @@ class Team
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, StatutPlayer>
+     */
+    public function getStatutPlayers(): Collection
+    {
+        return $this->statutPlayers;
+    }
+
+    public function addStatutPlayer(StatutPlayer $statutPlayer): self
+    {
+        if (!$this->statutPlayers->contains($statutPlayer)) {
+            $this->statutPlayers[] = $statutPlayer;
+            $statutPlayer->setTeams($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatutPlayer(StatutPlayer $statutPlayer): self
+    {
+        if ($this->statutPlayers->removeElement($statutPlayer)) {
+            // set the owning side to null (unless already changed)
+            if ($statutPlayer->getTeams() === $this) {
+                $statutPlayer->setTeams(null);
+            }
+        }
+
+        return $this;
+    }
+
+   
 }

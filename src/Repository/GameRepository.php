@@ -38,6 +38,24 @@ class GameRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    // fonction search de la barre de recherche
+    public function search($critere)
+    {
+        //on va chercher dans la table game les parties
+        return $this->createQueryBuilder('game')
+        // on regarde dans les colonnes
+        ->andWhere('game.name LIKE :string')
+        ->orWhere('game.description LIKE :string')
+        ->orWhere('game.department LIKE :string')
+        ->orWhere('game.city LIKE :string')
+        // si on trouve le paramètre
+        ->setParameter('string', '%'.$critere.'%')
+        // on classe les résultats
+        ->orderBy('game.id', 'ASC')
+        // ->setMaxResults(10)
+        ->getQuery()
+        ->getResult();
+    }
 
 //    /**
 //     * @return Game[] Returns an array of Game objects

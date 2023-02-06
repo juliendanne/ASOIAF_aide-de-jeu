@@ -19,9 +19,10 @@ class FactionController extends AbstractController
      * @Route("/", name="app_faction_index", methods={"GET"})
      */
     public function index(FactionRepository $factionRepository): Response
-    {
+    {   
         return $this->render('faction/index.html.twig', [
             'factions' => $factionRepository->findAll(),
+            
         ]);
     }
 
@@ -30,6 +31,7 @@ class FactionController extends AbstractController
      */
     public function new(Request $request, FactionRepository $factionRepository): Response
     {
+        
         $faction = new Faction();
         $form = $this->createForm(FactionType::class, $faction);
         $form->handleRequest($request);
@@ -43,6 +45,7 @@ class FactionController extends AbstractController
         return $this->renderForm('faction/new.html.twig', [
             'faction' => $faction,
             'form' => $form,
+            
         ]);
     }
 
@@ -51,8 +54,10 @@ class FactionController extends AbstractController
      */
     public function show(Faction $faction): Response
     {
+        
         return $this->render('faction/show.html.twig', [
             'faction' => $faction,
+            
         ]);
     }
 
@@ -61,6 +66,7 @@ class FactionController extends AbstractController
      */
     public function edit(Request $request, Faction $faction, FactionRepository $factionRepository): Response
     {
+        
         $form = $this->createForm(FactionType::class, $faction);
         $form->handleRequest($request);
 
@@ -73,6 +79,7 @@ class FactionController extends AbstractController
         return $this->renderForm('faction/edit.html.twig', [
             'faction' => $faction,
             'form' => $form,
+            
         ]);
     }
 

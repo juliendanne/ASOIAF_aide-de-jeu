@@ -1,24 +1,26 @@
 
   body{
     background-image: url(../images/fond2.jpg);
-
     width: 100%;
-    height: 100%;
-    resize: both;
-    overflow: scroll;
+    height: 100vh !important;
     color: white;
     position: absolute;
-    position: relative;
   }
   .back-home-btn-size{
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-bottom: -30px;
   }
 
   body a{
     color: white;
   }
+  .navbar-brand {
+    margin: 1.3em;
+    position: relative;
+    top:1.5em;
+   }
 .navbar{
     background-color: rgb(6, 158, 204, 0) !important;
     z-index: 3 !important;
@@ -26,16 +28,9 @@
     position: relative;
     top: 1.5em;
    }
-   .navbar-brand {
-    margin: 1.3em;
-    position: relative;
-    top:1.5em;
-   }
 .nav-link{
     color: white !important;
   }
-
-
 header img{
     display: inline;
     width: 350px;
@@ -94,10 +89,11 @@ table a{
     position: relative;
     top: -67px;
     z-index: 1;
+    margin-bottom: -10em;
 }
 .btn-site-prez{
     position: relative;
-    bottom: 10em;
+    bottom: 0em;
     background-color: #ffbf00;
     border: white solid 3px;
     color: black;
@@ -110,10 +106,16 @@ footer{
     display: flex;
     justify-content: space-around;
     padding: 1em;
+    
+    
     position: absolute;
-    bottom: -5em;
+    bottom: 0vh;
+    
+    
     border-top: #ffbf00 solid 3px;
     width: 100%;
+    z-index: 3;
+   
 }
 
 .div-site-prez{
@@ -141,7 +143,7 @@ width: 100%;
 display: flex;
 justify-content: space-evenly;
 margin-top: 1em;
-margin-bottom: 1em;
+margin-bottom: -1.5em;
 
     
 }
@@ -149,9 +151,10 @@ margin-bottom: 1em;
     background-color: rgb(255, 191, 0, 1) !important;
     border: white solid 3px;
     padding: 1em;
+    
 }
 .card{
-    height: 60vh;
+    height: 53vh;
     margin: 0.5em;
     width: 15% !important;
     border: white solid 3px;
@@ -202,4 +205,19 @@ margin-top: -0.5em;
 }
 .interlignage_title_team_game_single{
     margin-bottom: 0.75em;
+}
+main{
+    width: 80%;
+    margin: auto;
+}
+ /* .back-home-btn{
+    position: relative;
+    bottom: 1.5em;
+} */
+.table_notif{
+    margin-bottom: 3.5em;
+}
+.t_ok{
+    height: 70vh;
+    overflow-y: scroll;
 }

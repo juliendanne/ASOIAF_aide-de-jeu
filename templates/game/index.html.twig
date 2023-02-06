@@ -3,64 +3,86 @@
 {% block title %}Game index{% endblock %}
 
 {% block body %}
+<main>
     <h1>Game index</h1>
-
+ <div class="t_ok">
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                {# <th>Id</th> #}
                 <th>Name</th>
-                <th>Description</th>
+                {# <th>Description</th> #}
                 <th>Date</th>
-                <th>AuthorIsPlayer</th>
-                <th>Format</th>
-                <th>TournamentGame</th>
+                {# <th>AuthorIsPlayer</th> #}
+               {#  <th>Format</th>
+                <th>TournamentGame</th> #}
                 <th>Time</th>
                 <th>NbTotalPlayer</th>
-                <th>NbOfTeam</th>
-                <th>Address</th>
+                {# <th>NbOfTeam</th> #}
+                {# <th>Address</th> #}
                 <th>ZipCode</th>
                 <th>City</th>
-                <th>Department</th>
-                <th>NbOfGame</th>
+              {#   <th>Department</th>
+                <th>NbOfGame</th> #}
                 <th>GameStatut</th>
                 <th>CreationDate</th>
-                <th>ModifDate</th>
+                {# <th>ModifDate</th> #}
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
+        {# on boucle sur les jeux #}
         {% for game in games %}
+        {# si l'utilisateur connecté est l'auteur de la partie ou si l'utilisateur connecté est un administrateur #}
         {% if user.id == game.author.id or is_granted('ROLE_ADMIN') %}
             <tr>
-                <td>{{ game.id }}</td>
+                {# <td>{{ game.id }}</td> #}
                 <td>{{ game.name }}</td>
-                <td>{{ game.description }}</td>
+                {# <td>{{ game.description }}</td> #}
                 <td>{{ game.date ? game.date|date('Y-m-d') : '' }}</td>
-                <td>{{ game.authorIsPlayer ? 'Yes' : 'No' }}</td>
+                {# <td>{{ game.authorIsPlayer ? 'Yes' : 'No' }}</td>
                 <td>{{ game.format }}</td>
-                <td>{{ game.tournamentGame ? 'Yes' : 'No' }}</td>
+                <td>{{ game.tournamentGame ? 'Yes' : 'No' }}</td> #}
                 <td>{{ game.time ? game.time|date('H:i:s') : '' }}</td>
                 <td>{{ game.nbTotalPlayer }}</td>
-                <td>{{ game.nbOfTeam }}</td>
-                <td>{{ game.address }}</td>
+                {# <td>{{ game.nbOfTeam }}</td>
+                <td>{{ game.address }}</td> #}
                 <td>{{ game.zipCode }}</td>
                 <td>{{ game.city }}</td>
-                <td>{{ game.department }}</td>
-                <td>{{ game.nbOfGame }}</td>
+                {# <td>{{ game.department }}</td>
+                <td>{{ game.nbOfGame }}</td> #}
                 <td>{{ game.gameStatut }}</td>
                 <td>{{ game.creationDate ? game.creationDate|date('Y-m-d') : '' }}</td>
-                <td>{{ game.modifDate ? game.modifDate|date('Y-m-d') : '' }}</td>
+                {# <td>{{ game.modifDate ? game.modifDate|date('Y-m-d') : '' }}</td> #}
                 <td class="btn_action">
                     <div class="btn_group">
                         <a class="show_btn" href="{{ path('app_game_show', {'id': game.id}) }}">show</a>
                         <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
-                    </div>    
+                    </div>
+                    {# on boucle sur les équipes     #}
                     {% for team in teams %}
+                    {# si l'id de la partie dans l'objet de la classe Game est égale à l'id de la partie dans l'objet de classe Team #}
                     {% if game.id == team.teamLinkForGame.id %}
+                    {# on affiche #}
                     <a href="{{ path('app_team_edit', {'id': team.id}) }}">éditer équipe {{ team.id }}</a>
+                    {# on boucle sur les joueurs de l'équipe #}
+                    {% for player in team.playersInTeam %}
+                    {# on boucle sur le statut des joueurs dans l'équipe #}
+                    {% for statut in team.statutPlayers %}
+                    
+                    
+                    {# si l'id du joueur dans statut est égale à l'id du joueur dans l'équipe et que le libellé du statut du joueur est "en cours de validation" #}
+                    {% if statut.players.id == player.id  and statut.name == 'en cours de validation' %}
+                    <a href="{{ path('app_validate_player', {'id': statut.id}) }}">valider joueur {{ player.login }}</a>
+                    {% endif %}
+                    
+                    {% endfor %}
+                    {% endfor %}
                     {% endif %}
                     {% endfor %}
+
+                    
+
                 </td>
             </tr>{% endif %}
         {% else %}
@@ -68,8 +90,10 @@
                 <td colspan="19">no records found</td>
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
-
+</div>
     <a href="{{ path('app_game_new') }}">Create new</a>
+    </main>
 {% endblock %}

@@ -3,6 +3,7 @@
 {% block title %}New Game{% endblock %}
 
 {% block body %}
+<main>
     <h1>Create new Game</h1>
 
     {{ include('game/_form.html.twig') }}
@@ -10,5 +11,5 @@
     <a href="{{ path('app_game_index') }}">back to list</a>
     
 <script src="{{ asset('/js/form_new_game.js') }}"></script>
-
+</main>
 {% endblock %}

@@ -94,10 +94,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $notifsOfAuthor;
 
+
+
     /**
-     * @ORM\ManyToMany(targetEntity=Notification::class, mappedBy="addressee")
+     * @ORM\OneToMany(targetEntity=StatutPlayer::class, mappedBy="players")
      */
-    private $notifsOfAddressee;
+    private $statutsOfPlayer;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Notification::class, mappedBy="addressee")
+     */
+    private $notifications;
+
+ 
+
+
+
+
+
+ 
 
     public function __construct()
     {
@@ -106,6 +121,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->gamesjoined = new ArrayCollection();
         $this->notifsOfAuthor = new ArrayCollection();
         $this->notifsOfAddressee = new ArrayCollection();
+        $this->statutsOfPlayer = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
+        $this->notificationsOk = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -395,30 +414,73 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
+
+    /**
+     * @return Collection<int, StatutPlayer>
+     */
+    public function getStatutsOfPlayer(): Collection
+    {
+        return $this->statutsOfPlayer;
+    }
+
+    public function addStatutsOfPlayer(StatutPlayer $statutsOfPlayer): self
+    {
+        if (!$this->statutsOfPlayer->contains($statutsOfPlayer)) {
+            $this->statutsOfPlayer[] = $statutsOfPlayer;
+            $statutsOfPlayer->setPlayers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatutsOfPlayer(StatutPlayer $statutsOfPlayer): self
+    {
+        if ($this->statutsOfPlayer->removeElement($statutsOfPlayer)) {
+            // set the owning side to null (unless already changed)
+            if ($statutsOfPlayer->getPlayers() === $this) {
+                $statutsOfPlayer->setPlayers(null);
+            }
+        }
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Notification>
      */
-    public function getNotifsOfAddressee(): Collection
+    public function getNotifications(): Collection
     {
-        return $this->notifsOfAddressee;
+        return $this->notifications;
     }
 
-    public function addNotifsOfAddressee(Notification $notifsOfAddressee): self
+    public function addNotification(Notification $notification): self
     {
-        if (!$this->notifsOfAddressee->contains($notifsOfAddressee)) {
-            $this->notifsOfAddressee[] = $notifsOfAddressee;
-            $notifsOfAddressee->addAddressee($this);
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications[] = $notification;
+            $notification->setAddressee($this);
         }
 
         return $this;
     }
 
-    public function removeNotifsOfAddressee(Notification $notifsOfAddressee): self
+    public function removeNotification(Notification $notification): self
     {
-        if ($this->notifsOfAddressee->removeElement($notifsOfAddressee)) {
-            $notifsOfAddressee->removeAddressee($this);
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getAddressee() === $this) {
+                $notification->setAddressee(null);
+            }
         }
 
         return $this;
     }
+
+
+
+
+
+
+
+   
 }
