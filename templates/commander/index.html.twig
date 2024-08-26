@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commander index{% endblock %}
+
+{% block body %}
+    <h1>Commander index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Full_name</th>
+                <th>Is_a_character</th>
+                <th>SoloUnit</th>
+                <th>Cost</th>
+                <th>Card</th>
+                <th>CardVerso</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commander in commanders %}
+            <tr>
+                <td>{{ commander.id }}</td>
+                <td>{{ commander.name }}</td>
+                <td>{{ commander.fullName }}</td>
+                <td>{{ commander.isACharacter ? 'Yes' : 'No' }}</td>
+                <td>{{ commander.soloUnit ? 'Yes' : 'No' }}</td>
+                <td>{{ commander.cost }}</td>
+                <td>{{ commander.card }}</td>
+                <td>{{ commander.cardVerso }}</td>
+                <td>
+                    <a href="{{ path('app_commander_show', {'id': commander.id}) }}">show</a>
+                    <a href="{{ path('app_commander_edit', {'id': commander.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_commander_new') }}">Create new</a>
+{% endblock %}

@@ -17,8 +17,9 @@
                         <div class="carousel-item">
                             {% endif %}
                             <div class="lineElement">
+                            
 *                            {% for game in games|slice(n, 5) %}
-                                {% if game.playersjoined|length < game.nbTotalPlayer and game.gameStatut == 'cherche joueurs'%}  
+                                {% if game.playersjoined|length < game.nbTotalPlayer %} 
                                     <div class="card d-block w-100">
                                         <div class="card-header">
                                             Le {{ game.date|date('d/m/Y') }} - {{ game.time|date('H:i') }}
@@ -35,6 +36,7 @@
                                     </div>
                                 {% endif %}
                             {% endfor %}
+                            
                             {% set n = n + 5 %}
                         </div>    
                     </div>

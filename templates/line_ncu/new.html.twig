@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New LineNCU{% endblock %}
+
+{% block body %}
+    <h1>Create new LineNCU</h1>
+
+    {{ include('line_ncu/_form.html.twig') }}
+
+    <a href="{{ path('app_line_n_c_u_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Army{% endblock %}
+
+{% block body %}
+<main>
+    <h1>Edit Army</h1>
+    <p class='factionElement' data-faction='{{ army.faction.id }}'>Faction : {{ army.faction }}</p>
+
+    {% if army.commander %}
+        <p class='commanderElement' data-commander='{{ army.commander.id }}'>Commandant : {{ army.commander.name }}</p>
+    {% endif %}
+
+    {{ include('army/_form.html.twig', {'button_label': 'Update'}) }}
+    <p>Coût total de l'armée : {{ totalCostCu }} points</p>
+        <table class="table">
+        <thead>
+            <tr>
+                {# <th>Id</th> #}
+                <th>Name of unit</th>
+                <th>Card</th>
+                <th>cost</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set display = false %}
+        {% for lineArmy in lineArmies %}
+            <tr>
+                <td>{{ lineArmy.combatUnit.name }}</td>
+                <td>{{ lineArmy.combatUnit.cardVerso }}<img class='cardToEnlarge' src="{{ asset('/uploads/image_cards/' ~ lineArmy.combatUnit.cardVerso) }}" alt="" ></td>
+                <td>{{ lineArmy.combatUnit.cost }}</td>
+                <td>
+                    {% if lineArmy.lineCommander is not null %}
+                    {% set display = true %}
+                    {% endif %}
+                    {% if lineArmy.lineCommander is null and display == false %}
+
+
+                     <a href="{{ path('app_line_army_commander_edit', {'id': lineArmy.id}) }}">Add Commander</a>
+
+                     {% endif %}
+                     {% if lineArmy.lineAttachments|length < 1 and lineArmy.lineCommander is null %}
+                        <a href="{{ path('app_line_army_edit', {'id': lineArmy.id}) }}">Add Attachment</a>
+                    {% endif %}
+                     <a href="{{ path('app_line_army_delete2', {'id': lineArmy.id}) }}">Delete Unit</a>
+                    {# <a href="{{ path('app_army_edit', {'id': army.id}) }}">edit</a>  #}
+                </td>
+            </tr>
+            {% for lineAttachment in lineAttachments %}
+                {% if lineAttachment.lineArmy == lineArmy %}
+                    <tr>
+                    <td>&#x2794 Attachment &#x2794 {{ lineAttachment.attachment.name }}</td>
+                    <td> {{ lineAttachment.attachment.cardVerso }}<img class='cardToEnlarge' src="{{ asset('/uploads/image_cards/' ~ lineAttachment.attachment.cardVerso) }}" alt="" ></td>
+                    <td>{{ lineAttachment.attachment.cost }}</td>
+                    <td><a href="{{ path('app_line_attachment_delete2', {'id': lineAttachment.id}) }}">Delete Attachment</a></td>
+                    </tr>
+
+                
+                {% endif %}
+            {% endfor %}
+            {% for myLineCommander in lineCommander %}
+                {% if myLineCommander.linkLineArmy == lineArmy %}
+                    <tr>
+                    <td>&#x2794 Commandant &#x2794 {{ myLineCommander.commander.name }}</td>
+                    <td>{{ myLineCommander.commander.cardVerso }}<img class='cardToEnlarge' src="{{ asset('/uploads/image_cards/' ~ myLineCommander.commander.cardVerso) }}" alt="" ></td>
+                    <td>{{ myLineCommander.commander.cost }}</td>
+                    <td><a href="{{ path('app_line_commander_delete2', {'id': myLineCommander.id}) }}">Delete Commander</a></td>
+                    </tr>
+
+                
+                {% endif %}
+            {% endfor %}
+ 
+
+        {# {% else %} #}
+        {% endfor %}
+        {% for lineNCU in lineNCUs %}
+        <tr>
+            <td>{{ lineNCU.noCombatUnit.name }}</td>
+            <td>{{ lineNCU.noCombatUnit.cardVerso }}<img class='cardToEnlarge' src="{{ asset('/uploads/image_cards/' ~ lineNCU.noCombatUnit.cardVerso) }}" alt="" ></td>
+            <td>{{ lineNCU.noCombatUnit.cost }}</td>
+            <td>                     <a href="{{ path('app_lineNCU_delete2', {'id': lineNCU.id}) }}">Delete NCU</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_army_index') }}">back to list</a>
+<script src="{{ asset('/js/form_edit_army.js') }}"></script>
+    {{ include('army/_delete_form.html.twig') }}
+    </main>
+{% endblock %}

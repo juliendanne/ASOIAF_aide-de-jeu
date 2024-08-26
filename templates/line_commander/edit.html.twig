@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit LineCommander{% endblock %}
+
+{% block body %}
+<main>
+    <h1>Edit LineCommander</h1>
+
+    {{ include('line_commander/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_line_commander_index') }}">back to list</a>
+
+    {{ include('line_commander/_delete_form.html.twig') }}
+</main>
+{% endblock %}

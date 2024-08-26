@@ -77,7 +77,7 @@ class GameController extends AbstractController
         $user = $this->getUser();
         $regions = $regionRepository->findAll();
         return $this->render('game/searched_game.html.twig', [
-            'games' => $gameRepository->findBy(['region'=>$region]),
+            'games' => $gameRepository->findBy(['region'=>$region, 'gameStatut'=>'cherche joueurs']),
             'region_selected' => $region,
             'regions' => $regions,
             'teams' => $teamRepository->findAll(),

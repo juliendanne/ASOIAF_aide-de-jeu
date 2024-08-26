@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CombatUnit{% endblock %}
+
+{% block body %}
+    <h1>CombatUnit</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ combat_unit.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ combat_unit.name }}</td>
+            </tr>
+            <tr>
+                <th>Cost</th>
+                <td>{{ combat_unit.cost }}</td>
+            </tr>
+            <tr>
+                <th>SoloUnit</th>
+                <td>{{ combat_unit.soloUnit ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Card</th>
+                <td>{{ combat_unit.card }}</td>
+            </tr>
+            <tr>
+                <th>CardVerso</th>
+                <td>{{ combat_unit.cardVerso }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_combat_unit_index') }}">back to list</a>
+
+    <a href="{{ path('app_combat_unit_edit', {'id': combat_unit.id}) }}">edit</a>
+
+    {{ include('combat_unit/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit LineAttachment{% endblock %}
+
+{% block body %}
+<main>
+    <h1>Edit LineAttachment</h1>
+
+    {{ include('line_attachment/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_line_attachment_index') }}">back to list</a>
+
+    {{ include('line_attachment/_delete_form.html.twig') }}
+</main>
+{% endblock %}

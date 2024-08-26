@@ -60,7 +60,7 @@ function displayNbPlayer() {
         for(var i=0; i<nodes.length; i++){
           var nbPlayer = parseInt(nodes[i].value);
           // si l'élément input a une value qui n'est pas multiple de 3...
-          if(nbPlayer%3 != 0 && !isNaN(nbPlayer)){
+          if(nbPlayer%6 != 0 && !isNaN(nbPlayer)){
             // ...on ne l'affiche pas...
             nodes[i].style.display = 'none';
             // ...même traitement pour le label qui lui est associé (nextSibling permet de sélectionner l'élément suivant parmi les enfants su même parent(https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling))
@@ -79,3 +79,5 @@ function displayNbPlayer() {
     nbTotalPlayerElement.previousSibling.style.display = 'none';
   }
 }
+//-------------------------------------------------------------
+

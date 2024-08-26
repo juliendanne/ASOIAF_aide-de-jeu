@@ -72,6 +72,19 @@
                         {% if app.user %}
                                 <a class="nav-link" href="{{ path('app_game_new') }}">Créer nouvelle partie</a>
                         {% endif %}
+                        {% if app.user %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           Armées
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ path('app_army_new') }}">Créer nouvelle armée</a></li>
+                          
+                                <li><a class="dropdown-item" href="{{ path('app_army_index') }}">Mes armées</a></li>
+                           
+                            </ul>
+                        </li>
+                        {% endif %}
 
                         <img class="image-logo" src="{{ asset('/images/logo2.png') }}" alt=""> 
 
@@ -87,10 +100,14 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ path('app_game_index') }}">Gérer les parties</a></li>
                                 <li><a class="dropdown-item" href="{{ path('app_region_index') }}">Gérer les régions</a></li>
-
-                                <li><a class="dropdown-item" href="{{ path('app_user_index') }}">
-                                Gérer les Utilisateurs
-                                </a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_faction_index') }}">Gérer les factions</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_type_of_unit_index') }}">Gérer les types d'unités</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_combat_unit_index') }}">Gérer les unités combattantes</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_no_combat_unit_index') }}">Gérer les NCUs</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_commander_index') }}">Gérer les commandants</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_attachment_index') }}">Gérer les attachements</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_army_index') }}">Gérer les armées</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_user_index') }}">Gérer les Utilisateurs</a></li>
                             </ul>
                         </li>
                         {% endif %}

@@ -106,6 +106,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $notifications;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Army::class, mappedBy="armyUser", orphanRemoval=true)
+     */
+    private $armies;
+
+    /**
+     * @ORM\OneToMany(targetEntity=LineAttachment::class, mappedBy="author")
+     */
+    private $lineAttachments;
+
+    /**
+     * @ORM\OneToMany(targetEntity=LineCommander::class, mappedBy="author")
+     */
+    private $lineCommanders;
+
+
+
  
 
 
@@ -124,6 +141,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->statutsOfPlayer = new ArrayCollection();
         $this->notifications = new ArrayCollection();
         $this->notificationsOk = new ArrayCollection();
+        $this->armies = new ArrayCollection();
+        $this->lineAttachments = new ArrayCollection();
+        $this->lineCommanders = new ArrayCollection();
 
     }
 
@@ -470,6 +490,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($notification->getAddressee() === $this) {
                 $notification->setAddressee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Army>
+     */
+    public function getArmies(): Collection
+    {
+        return $this->armies;
+    }
+
+    public function addArmy(Army $army): self
+    {
+        if (!$this->armies->contains($army)) {
+            $this->armies[] = $army;
+            $army->setArmyUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArmy(Army $army): self
+    {
+        if ($this->armies->removeElement($army)) {
+            // set the owning side to null (unless already changed)
+            if ($army->getArmyUser() === $this) {
+                $army->setArmyUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LineAttachment>
+     */
+    public function getLineAttachments(): Collection
+    {
+        return $this->lineAttachments;
+    }
+
+    public function addLineAttachment(LineAttachment $lineAttachment): self
+    {
+        if (!$this->lineAttachments->contains($lineAttachment)) {
+            $this->lineAttachments[] = $lineAttachment;
+            $lineAttachment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLineAttachment(LineAttachment $lineAttachment): self
+    {
+        if ($this->lineAttachments->removeElement($lineAttachment)) {
+            // set the owning side to null (unless already changed)
+            if ($lineAttachment->getAuthor() === $this) {
+                $lineAttachment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LineCommander>
+     */
+    public function getLineCommanders(): Collection
+    {
+        return $this->lineCommanders;
+    }
+
+    public function addLineCommander(LineCommander $lineCommander): self
+    {
+        if (!$this->lineCommanders->contains($lineCommander)) {
+            $this->lineCommanders[] = $lineCommander;
+            $lineCommander->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLineCommander(LineCommander $lineCommander): self
+    {
+        if ($this->lineCommanders->removeElement($lineCommander)) {
+            // set the owning side to null (unless already changed)
+            if ($lineCommander->getAuthor() === $this) {
+                $lineCommander->setAuthor(null);
             }
         }
 
