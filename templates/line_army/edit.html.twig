@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit LineArmy{% endblock %}
+
+{% block body %}
+<main>
+    <h1>Edit LineArmy</h1>
+        <p class='factionElement' data-faction='{{ army.faction.id }}'>Faction : {{ army.faction }}</p>
+    {% if commander is defined %}
+        <p>Ajouter le Commandant : {{ commander.name }} à votre unité</p>
+    {% endif %}
+
+    {{ include('line_army/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_line_army_index') }}">back to list</a>
+
+    {{ include('line_army/_delete_form.html.twig') }}
+    <script src="{{ asset('/js/form_edit_linearmy.js') }}"></script>
+</main>
+{% endblock %}

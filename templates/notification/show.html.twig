@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notification{% endblock %}
+
+{% block body %}
+<main>
+    <h1>Notification</h1>
+{% if (user and user.id == notification.addressee.id) or is_granted('ROLE_ADMIN') %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ notification.id }}</td>
+            </tr>
+            <tr>
+                <th>Object</th>
+                <td>{{ notification.object }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ notification.content }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ notification.statut }}</td>
+            </tr>
+            <tr>
+                <th>CreationDate</th>
+                <td>{{ notification.creationDate ? notification.creationDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ModifDate</th>
+                <td>{{ notification.modifDate ? notification.modifDate|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+{{ form_end(form) }}
+
+    <a href="{{ path('app_notification_index') }}">back to list</a>
+
+    {# <a href="{{ path('app_notification_edit', {'id': notification.id}) }}">edit</a> #}
+
+    {{ include('notification/_delete_form.html.twig') }}
+    {% else %}
+    <p>Vous n'avez pas l'autorisation d'accéder à cette page</p>
+    {% endif %}
+    </main>
+{% endblock %}

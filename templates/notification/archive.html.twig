@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notification archive{% endblock %}
+
+{% block body %}
+<main>
+    <h1>Notifications archivées</h1>
+<div class="t_ok">
+    <table class="table table_notif">
+        <thead>
+            <tr>
+                {# <th>Id</th> #}
+                <th>Object</th>
+                {# <th>Content</th> #}
+                <th>Statut</th>
+                <th>CreationDate</th>
+                {# <th>ModifDate</th> #}
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {# on boucle sur les notifications #}
+        {% for notification in notifications %}
+            {# si l'id de l'utilisateur connecté est égale à l'id du destinataire de la notification et que le statut  de la notification est "archivé" on affiche #}
+             {% if user.id == notification.addressee.id and notification.statut == 'archivée' %} 
+            <tr>
+                {# <td>{{ notification.id }}</td> #}
+                <td>{{ notification.object }}</td>
+                {# <td>{{ notification.content }}</td> #}
+                <td>{{ notification.statut }}</td>
+                <td>{{ notification.creationDate ? notification.creationDate|date('Y-m-d') : '' }}</td>
+                {# <td>{{ notification.modifDate ? notification.modifDate|date('Y-m-d') : '' }}</td> #}
+                <td>
+                    <a href="{{ path('app_notification_show', {'id': notification.id}) }}">voir</a>
+                    {# <a href="{{ path('app_notification_edit', {'id': notification.id}) }}">edit</a> #}
+                </td>
+            </tr>
+        {# {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr> #}
+                {% endif %}
+            
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</main>
+    {# <a href="{{ path('app_notification_new') }}">Create new</a> #}
+{% endblock %}

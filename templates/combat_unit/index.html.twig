@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CombatUnit index{% endblock %}
+
+{% block body %}
+    <h1>CombatUnit index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>SoloUnit</th>
+                <th>Card</th>
+                <th>CardVerso</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for combat_unit in combat_units %}
+            <tr>
+                <td>{{ combat_unit.id }}</td>
+                <td>{{ combat_unit.name }}</td>
+                <td>{{ combat_unit.cost }}</td>
+                <td>{{ combat_unit.soloUnit ? 'Yes' : 'No' }}</td>
+                <td>{{ combat_unit.card }}<img src="{{ asset('/uploads/image_cards/' ~ combat_unit.card) }}" alt="" width='30px' ></td>
+                <td>{{ combat_unit.cardVerso }}<img src="{{ asset('/uploads/image_cards/' ~ combat_unit.cardVerso) }}" alt="" width='30px' ></td>
+                <td>
+                    <a href="{{ path('app_combat_unit_show', {'id': combat_unit.id}) }}">show</a>
+                    <a href="{{ path('app_combat_unit_edit', {'id': combat_unit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_combat_unit_new') }}">Create new</a>
+{% endblock %}

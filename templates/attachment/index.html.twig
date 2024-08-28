@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Attachment index{% endblock %}
+
+{% block body %}
+    <h1>Attachment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Is_a_character</th>
+                <th>Full_name</th>
+                <th>Cost</th>
+                <th>Card</th>
+                <th>CardVerso</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for attachment in attachments %}
+            <tr>
+                <td>{{ attachment.id }}</td>
+                <td>{{ attachment.name }}</td>
+                <td>{{ attachment.isACharacter ? 'Yes' : 'No' }}</td>
+                <td>{{ attachment.fullName }}</td>
+                <td>{{ attachment.cost }}</td>
+                <td>{{ attachment.card }}</td>
+                <td>{{ attachment.cardVerso }}</td>
+                <td>
+                    <a href="{{ path('app_attachment_show', {'id': attachment.id}) }}">show</a>
+                    <a href="{{ path('app_attachment_edit', {'id': attachment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_attachment_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Army index{% endblock %}
+
+{% block body %}
+<main>
+    <h1>Army index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Limit_cost</th>
+                <th>Total_cost</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for army in armies %}
+            <tr>
+                <td>{{ army.id }}</td>
+                <td>{{ army.name }}</td>
+                <td>{{ army.limitCost }}</td>
+                <td>{{ army.totalCost }}</td>
+                <td>
+                    <a href="{{ path('app_army_show', {'id': army.id}) }}">show</a>
+                    <a href="{{ path('app_army_edit', {'id': army.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_army_new') }}">Create new</a>
+</main>
+{% endblock %}

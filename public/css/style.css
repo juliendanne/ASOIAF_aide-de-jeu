@@ -1,0 +1,230 @@
+
+  body{
+    background-image: url(../images/fond2.jpg);
+    width: 100%;
+    height: 100vh !important;
+    color: white;
+    position: absolute;
+  }
+  .back-home-btn-size{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: -30px;
+  }
+
+  body a{
+    color: white;
+  }
+  .navbar-brand {
+    margin: 1.3em;
+    position: relative;
+    top:1.5em;
+   }
+.navbar{
+    background-color: rgb(6, 158, 204, 0) !important;
+    z-index: 3 !important;
+    color: white;
+    position: relative;
+    top: 1.5em;
+   }
+.nav-link{
+    color: white !important;
+  }
+header img{
+    display: inline;
+    width: 350px;
+    z-index: 1;
+    position: relative;
+    top: 1.5em;
+  }
+.tracing{
+    border-bottom: solid #ffbf00 1px;
+    color:rgb(6, 158, 204, 0) !important ;
+    width: 100%;
+    height: 3px;
+    position: relative;
+    top: -2.5em;
+    z-index: 2;
+  }
+  .tracing2{
+    border-top: solid #ffbf00 3px;
+    color:rgb(6, 158, 204, 0) !important ;
+    width: 100%;
+    position: relative;
+    top: -2em;
+    z-index: 2;
+  }
+
+.searchbar{
+    display: flex;
+    position: relative;
+    top: -1em;
+    z-index: 3;
+}
+table{
+    background-color: white;
+    font-size: 0.8em;
+}
+table a{
+    color: black;
+}
+.btn_action {
+    display: flex;
+    flex-direction: column;
+    width: 130px;
+}
+.btn_group{
+    display: flex;
+}
+.show_btn{
+    margin-right: 1em;
+}
+.navbar-toggler-icon{
+    background-color: white !important;
+    
+}
+.image-home{
+    width: 100%;
+    position: relative;
+    top: -67px;
+    z-index: 1;
+    margin-bottom: -10em;
+}
+.btn-site-prez{
+    position: relative;
+    bottom: 0em;
+    background-color: #ffbf00;
+    border: white solid 3px;
+    color: black;
+    padding: 1em;
+    text-decoration: none;
+    margin: auto;
+    z-index: 3;
+}
+footer{
+    display: flex;
+    justify-content: space-around;
+    padding: 1em;
+    
+    
+    position: absolute;
+    bottom: 0vh;
+    
+    
+    border-top: #ffbf00 solid 3px;
+    width: 100%;
+    z-index: 3;
+   
+}
+
+.div-site-prez{
+    width: 100%;
+    display: flex;
+}
+.card-header{
+    color: black;
+    background-color: rgb(255, 191, 0, 1);
+    font-weight: bold;
+    text-align: center;
+    border-top-left-radius: 25px !important;
+    border-top-right-radius: 25px !important;
+    
+
+}
+ .lineElement{
+    justify-content: center;
+    display: flex !important;
+    flex-direction: row !important;
+} 
+
+ .carousel-controlers{
+width: 100%;
+display: flex;
+justify-content: space-evenly;
+margin-top: 1em;
+margin-bottom: -1.5em;
+
+    
+}
+.carousel-controler-next, .carousel-controler-prev{
+    background-color: rgb(255, 191, 0, 1) !important;
+    border: white solid 3px;
+    padding: 1em;
+    
+}
+.card{
+    height: 53vh;
+    margin: 0.5em;
+    width: 15% !important;
+    border: white solid 3px;
+    border-radius: 25px;
+    position: relative;
+}
+.card-body{
+    color: black;
+}
+.card-title{
+    font-weight: bold;
+}
+.card-title span{
+    font-weight: normal;
+}
+.card-title-last{
+    border-bottom: #ffbf00 solid 2px;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+.card-body .btn{
+    text-align: center;
+    background-color: rgb(255, 191, 0, 1) !important;
+    border: #ffbf00 solid 1px;
+    border-radius: 0%;
+    color: black;
+    font-weight: bold;
+    margin-top: 2em;
+    position: absolute;
+    bottom: 1em;
+}
+.def-tai{
+height: 30vh;
+overflow: hidden;
+}
+.btn-center{
+    display: flex;
+    justify-content: center;
+}
+.page-title{
+    text-align: center;
+}
+.team_link{
+    margin-right: 2em;
+}
+.interlignage_team_game_single{
+margin-top: -0.5em;
+}
+.interlignage_title_team_game_single{
+    margin-bottom: 0.75em;
+}
+main{
+    width: 80%;
+    margin: auto;
+}
+ /* .back-home-btn{
+    position: relative;
+    bottom: 1.5em;
+} */
+.table_notif{
+    margin-bottom: 3.5em;
+}
+.t_ok{
+    height: 70vh;
+    overflow-y: scroll;
+}
+/*test*/
+.cardToEnlarge{
+    width: 30px;
+}
+.cardToEnlarge:hover{
+    width: 1200px;
+}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NoCombatUnit index{% endblock %}
+
+{% block body %}
+    <h1>NoCombatUnit index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Full_name</th>
+                <th>Is_a_character</th>
+                <th>Cost</th>
+                <th>Card</th>
+                <th>CardVerso</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for no_combat_unit in no_combat_units %}
+            <tr>
+                <td>{{ no_combat_unit.id }}</td>
+                <td>{{ no_combat_unit.name }}</td>
+                <td>{{ no_combat_unit.fullName }}</td>
+                <td>{{ no_combat_unit.isACharacter ? 'Yes' : 'No' }}</td>
+                <td>{{ no_combat_unit.cost }}</td>
+                <td>{{ no_combat_unit.card }}</td>
+                <td>{{ no_combat_unit.cardVerso }}</td>
+                <td>
+                    <a href="{{ path('app_no_combat_unit_show', {'id': no_combat_unit.id}) }}">show</a>
+                    <a href="{{ path('app_no_combat_unit_edit', {'id': no_combat_unit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_no_combat_unit_new') }}">Create new</a>
+{% endblock %}

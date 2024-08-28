@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accepter joueur{% endblock %}
+
+{% block body %}
+<main>
+    <h1>Accepter joueur</h1>
+
+
+    {{ include('statut_player/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('app_game_index') }}">Retour à la liste</a>
+
+</main>
+{% endblock %}

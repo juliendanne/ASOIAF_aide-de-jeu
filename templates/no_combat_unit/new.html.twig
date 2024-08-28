@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New NoCombatUnit{% endblock %}
+
+{% block body %}
+    <h1>Create new NoCombatUnit</h1>
+
+    {{ include('no_combat_unit/_form.html.twig') }}
+
+    <a href="{{ path('app_no_combat_unit_index') }}">back to list</a>
+{% endblock %}

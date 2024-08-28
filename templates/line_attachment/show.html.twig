@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LineAttachment{% endblock %}
+
+{% block body %}
+    <h1>LineAttachment</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ line_attachment.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_line_attachment_index') }}">back to list</a>
+
+    <a href="{{ path('app_line_attachment_edit', {'id': line_attachment.id}) }}">edit</a>
+
+    {{ include('line_attachment/_delete_form.html.twig') }}
+{% endblock %}

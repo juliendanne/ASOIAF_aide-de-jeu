@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LineAttachment index{% endblock %}
+
+{% block body %}
+    <h1>LineAttachment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for line_attachment in line_attachments %}
+            <tr>
+                <td>{{ line_attachment.id }}</td>
+                <td>
+                    <a href="{{ path('app_line_attachment_show', {'id': line_attachment.id}) }}">show</a>
+                    <a href="{{ path('app_line_attachment_edit', {'id': line_attachment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_line_attachment_new') }}">Create new</a>
+{% endblock %}

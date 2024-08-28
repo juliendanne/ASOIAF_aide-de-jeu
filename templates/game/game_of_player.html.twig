@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes parties joueur{% endblock %}
+
+{% block body %}
+<main>
+    <h1>Mes parties joueur</h1>
+<div class="t_ok">
+    <table class="table">
+        <thead>
+            <tr>
+                {# <th>Id</th> #}
+                <th>Name</th>
+                {# <th>Description</th> #}
+                <th>StatutPlayer</th>
+                <th>Date</th>
+                {# <th>AuthorIsPlayer</th> #}
+{#                 <th>Format</th>
+                <th>TournamentGame</th> #}
+                <th>Time</th>
+                <th>NbTotalPlayer</th>
+{#                 <th>NbOfTeam</th>
+                <th>Address</th> #}
+                <th>ZipCode</th>
+                <th>City</th>
+{#                 <th>Department</th>
+                <th>NbOfGame</th> #}
+                <th>GameStatut</th>
+                <th>CreationDate</th>
+                {# <th>ModifDate</th> #}
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+{#         on définit un tableau vide dans lequel on stockera plus tard le ou les libellés des statuts player d'une partie : si un joueur fait une 1è demande qui est refusée mais qu'il en fait une 2è sur la même partie, on prendra alors la dernière valeur du tableau pour l'afficher #}
+        {% set statutPlayerText = [] %}
+        {# on boucle sur toutes les parties #}
+        {% for game in games %}
+            {# on boucle sur les équipes d'une partie #}
+            {% for team in game.teams %}
+            {# on boucle sur les joueurs d'une équipe #}
+                {% for player in team.playersInTeam %}
+                    {# si l'id du joueur dans l'équipe dans la partie est égale à l'id de l'utilisateur connecté #}
+                    {% if player.id == user.id %}
+            {# on affiche #}
+            <tr>
+                {# <td>{{ game.id }}</td> #}
+                <td>{{ game.name }}</td>
+                {# <td>{{ game.description }}</td> #}
+
+                {# on boucle sur les statutsPlayer #}
+                {% for statutPlayer in statutsPlayer %}
+{#                     si l'id du joueur dans statut est égale à l'id du joueur dans l'équipe dans la partie et que l'id de l'équipe dans statut est égale à l'id de l'équipe dans la partie alors #}
+                    {% if statutPlayer.players.id == player.id and team.id == statutPlayer.teams.id %}
+                        {# on remplit le tableau avec le ou les libellés des statuts #}
+                        {% set statutPlayerText = statutPlayerText|merge([statutPlayer.name]) %}
+                            {# on affiche le dernier #}
+                            <td>{{ statutPlayerText|last }}</td>
+                    {% endif %}
+                {% endfor %}
+
+
+                <td>{{ game.date ? game.date|date('Y-m-d') : '' }}</td>
+               {#  <td>{{ game.authorIsPlayer ? 'Yes' : 'No' }}</td>
+                <td>{{ game.format }}</td>
+                <td>{{ game.tournamentGame ? 'Yes' : 'No' }}</td> #}
+                <td>{{ game.time ? game.time|date('H:i:s') : '' }}</td>
+                <td>{{ game.nbTotalPlayer }}</td>
+                {# <td>{{ game.nbOfTeam }}</td>
+                <td>{{ game.address }}</td> #}
+                <td>{{ game.zipCode }}</td>
+                <td>{{ game.city }}</td>
+               {#  <td>{{ game.department }}</td>
+                <td>{{ game.nbOfGame }}</td> #}
+                <td>{{ game.gameStatut }}</td>
+                <td>{{ game.creationDate ? game.creationDate|date('Y-m-d') : '' }}</td>
+                {# <td>{{ game.modifDate ? game.modifDate|date('Y-m-d') : '' }}</td> #}
+                <td class="btn_action">
+                    <div class="btn_group">
+                        <a class="show_btn" href="{{ path('app_game_show', {'id': game.id}) }}">show</a>
+                        <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
+                    </div>    
+{#                             {% for team in teams %}
+                                {% if game.id == team.teamLinkForGame.id %} #}
+                                    <a href="{{ path('app_quit_team', {'id': team.id}) }}">quitter équipe {{ team.id }}</a>
+ {#                                {% endif %}
+                            {% endfor %} #}
+                </td>
+            </tr>    
+                            
+
+                {# {% endif %} #}
+{#              {% else %}
+            <tr>
+                <td colspan="19">no records found</td>
+            </tr> #} 
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <a href="{{ path('app_game_new') }}">Create new</a>
+    </main>
+{% endblock %}

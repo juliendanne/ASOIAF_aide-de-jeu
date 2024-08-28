@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Parties disponibles{% endblock %}
+
+{% block body %}
+
+<div class="search-result-main">
+
+<h1 class="page-title">Parties disponibles</h1>
+
+<div>
+{#     <div class="main_scroll home_body">
+    {% for advertisement in advertisements %}
+    {% if advertisement.statut == 'libre' %}
+    <a  class="home_body_element" href="{{ path('app_advertisement_single', {'id':advertisement.id}) }}">
+    <img src="{{ asset('/uploads/images/' ~ advertisement.picture) }}" alt="">
+    <p>{{ advertisement.titre }}</p>
+    <p>{{ advertisement.description }}</p>
+    <p>{{ advertisement.region }}</p>
+    <p>{{ advertisement.city }}</p>
+    <p>Du {{ advertisement.dateStart ? advertisement.dateStart|date('Y-m-d') : '' }} au {{ advertisement.dateEnd ? advertisement.dateEnd|date('Y-m-d') : '' }}</p>
+    </a>
+    {% endif %}
+    {% endfor %}
+    </div> #}
+
+    {# on définit une variable n égale à 0 #}
+    {% set n = 0 %}
+    <div id="carouselExampleControls" class="carousel slide">
+
+        <div class="carousel-inner">
+            {# on boucle sur les parties, mais avec 1 tour de boucle pour cinq parties, c'est à dire un tour de boucle dans l'interval compris entre 1 et le nombre d'objets dans le tableau games divisé par 5 et arrondi au nombre supérieur #}
+            {% for i in (1 .. ((games|length)/5)|round(0,'ceil'))  %}
+                {# si c'est le 1er tour de boucle #}
+                {% if i == 1 %}
+                <div class="carousel-item active">
+                {# sinon #}
+                {% else %}
+                <div class="carousel-item">
+                {% endif %}
+                <div class="lineElement">
+                 {# on boucle 5 tour sur game à partir de l'index n (0 au départ) #}
+                 {% for game in games|slice(n, 5) %}
+                    {# si le nombre de joueurs ayant rejoints la partie est inférieur au nombre total de places disponibles, et que le statut de la partie est "cherche joueurs" #}
+                    {% if game.playersjoined|length < game.nbTotalPlayer and game.gameStatut == 'cherche joueurs'%}  
+                        <div class="card d-block w-100">
+                            <div class="card-header">
+                                Le {{ game.date|date('d/m/Y') }} - {{ game.time|date('H:i') }}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Ville : <span>{{ game.city|capitalize }}</span></h5>
+                                <h5 class="card-title">Adresse : <span>{{ game.address }}</span></h5>
+                                <h5 class="card-title">Département : <span>{{ game.department }}</span></h5>
+                                <h5 class="card-title">Région : <span>{{ game.region.name }}</span></h5>
+                                <h5 class="card-title card-title-last">Format : <span>{{ game.format }}vs{{ game.format }}</span></h5>
+                            <div class="def-tai">  <p class="card-title">Description : <span>{{ game.description }}</span></p></div>
+                                <div class="btn-center"><a href="{{ path('app_game_single', {'id':game.id}) }}" class="btn btn-primary">Voir plus</a></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                {% endfor %}
+                {# on incrémente n de 5 (pour afficher les 5 parties suivantes dans le caroussel) #}
+                {% set n = n + 5 %}
+                </div>    
+                </div>
+
+
+
+            {% endfor %}
+             
+        </div>
+        <div class="carousel-controlers">
+        <button class="carousel-controler-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-controler-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+        </div>
+
+    </div>
+
+
+</div>
+</div>
+{% endblock %}

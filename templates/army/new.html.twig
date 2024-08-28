@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Army{% endblock %}
+
+{% block body %}
+<main>
+    <h1>Create new Army</h1>
+
+    {{ include('army/_form.html.twig') }}
+
+    <a href="{{ path('app_army_index') }}">back to list</a>
+    <script src="{{ asset('/js/form_new_army.js') }}"></script>
+    </main>
+{% endblock %}
